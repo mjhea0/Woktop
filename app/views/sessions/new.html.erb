@@ -1,0 +1,21 @@
+<% provide(:title, "Woktop - Sign in") %>
+<h1 id="title">sign<span class="green">in</span></h1>
+<ul id="nav">
+	<li><%= link_to "signup", signup_path, :class => 'button btnSmall signBtn' %></li>
+</ul>
+<div class="container_12">
+<%= form_tag '/login' do %>
+	<% if @errors %><div class="field_with_errors"><% end %>
+    <%= text_field_tag :email, params[:email], class: "grid_6 push_3", placeholder: "Email address" %>
+	<% if @errors %></div><% end %>
+	<div class="clear"></div>
+	<% if @errors %><div class="field_with_errors"><% end %>
+	<%= password_field_tag :password, params[:password], class: "grid_6 push_3", placeholder: "Password" %>
+	<% if @errors %></div><% end %>
+	<div class="clear"></div>
+	<%= submit_tag "wok n' woll!", class: "grid_6 push_3 btnLarge" %>
+	<div class="clear"></div>
+<% end %>
+
+	<p class="grid_6 push_3 aligncenter">Not yet signed up? <%= link_to "Join fo' free!", signup_path %></p>
+</div>

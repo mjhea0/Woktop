@@ -1,0 +1,8 @@
+<% if @user.errors.any? %>
+    <ul class="formErrors grid_6 push_3">
+    <% @user.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+	<div class="clear"></div>
+<% end %>

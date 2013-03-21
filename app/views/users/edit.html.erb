@@ -1,0 +1,18 @@
+<% provide(:title, 'Woktop - Organize all of your online files') %>
+<h1 id="title">edit <span class="green">profile</span></h1>
+<ul id="nav">
+	<li><%= link_to "logout", logout_path, :method => "delete", :class => 'button btnSmall signBtn' %></li>
+</ul>
+<div class="container_12">
+	<%= form_for @user, url: '/profile/edit' do |f| %>
+		<%= f.text_field :first_name, class: "grid_3 push_3", placeholder: "First name" %>
+		<%= f.text_field :last_name, class: "grid_3 push_3", placeholder: "Last name" %>
+		<div class="clear"></div>
+		<%= f.text_field :email, class: "grid_6 push_3", placeholder: "Email address" %>
+		<div class="clear"></div>
+		<%= f.password_field :password, class: "grid_3 push_3", placeholder: "Password" %>
+		<%= f.password_field :password_confirmation, class: "grid_3 push_3", placeholder: "Password again" %>
+		<div class="clear"></div>
+		<%= f.submit "save changes!", class: "grid_6 push_3 btnLarge" %>
+	<% end %>
+</div>

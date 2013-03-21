@@ -1,0 +1,246 @@
+@charset "UTF-8";
+/* CSS Document */
+
+/* html5doctor.com Reset v1.6.1 - http://cssreset.com */
+html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,abbr,address,cite,code,del,dfn,em,img,ins,kbd,q,samp,small,strong,sub,sup,var,b,i,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,figcaption,figure,footer,header,hgroup,menu,nav,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}nav ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:none}a{margin:0;padding:0;font-size:100%;vertical-align:baseline;background:transparent}ins{background-color:#ff9;color:#000;text-decoration:none}mark{background-color:#ff9;color:#000;font-style:italic;font-weight:bold}del{text-decoration:line-through}abbr[title],dfn[title]{border-bottom:1px dotted;cursor:help}table{border-collapse:collapse;border-spacing:0}hr{display:block;height:1px;border:0;border-top:1px solid #ccc;margin:1em 0;padding:0}input,select{vertical-align:middle}html,body{overflow:hidden;}body{position:relative;}input:focus,textarea:focus,option:focus,select:focus{outline:none;}
+
+body, input, textarea {
+	font-family: Helvetica Neue, sans-serif;
+	font-size: 14px;
+}
+
+input:focus { outline: none; }
+
+a { color: #00B4FF;	text-decoration: none; transition: all 0.1s linear; -webkit-transition: all 0.1s linear; -moz-transition: all 0.1s linear; -ms-transition: all 0.1s linear; -o-transition: all 0.1s linear; }
+a:hover { color: #515151; }
+
+.alignleft { display: block; text-align: left; }
+.aligncenter { display: block; text-align: center; }
+.alignright { display: block; text-align: right; }
+img.alignleft { float: left; }
+img.aligncenter { display: block; margin-left: auto; margin-right: auto; }
+img.alignright { float: right; }
+
+p { margin-bottom: 5px; }
+h1, h2, h3, h4 { margin-top: 5px; margin-bottom: 10px; }
+h1 { font-size: 2.25em; }
+h2 { font-size: 1.95em; }
+h3 { font-size: 1.65em; }
+h4 { font-size: 1.5em; }
+
+#wrap {
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	background: url(images/background.jpg) no-repeat center center fixed; 
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/background.jpg', sizingMethod='scale');
+	-ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/background.jpg', sizingMethod='scale')";
+}
+
+#login, #register, #password, #settings, #recover {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	width: 200px;
+	height: 200px;
+	margin-left: -120px;
+	margin-top: -120px;
+	background: #FFF;
+	background: rgba(255,255,255,0.85);
+	padding: 20px;
+	border-radius: 10px;
+	box-shadow: 0px 0px 25px #000;
+}
+
+#register, #settings {
+	height: 272px;
+	margin-top: -136px;
+}
+
+#login, #password {
+	height: 225px;
+	margin-top: -112px;
+}
+
+#login input, #register input, #password input, #settings input, #recover input {
+	display: block;
+	border: 1px solid #CCC;
+	padding: 10px;
+	width: 180px;
+	height: 20px;
+	margin: 5px 0px;
+	font-size: 1.15em;
+	transition: all 0.1s linear; -webkit-transition: all 0.1s linear; -moz-transition: all 0.1s linear; -ms-transition: all 0.1s linear; -o-transition: all 0.1s linear;
+}
+
+#login input[type=submit], #register input[type=submit], #password input[type=submit], #settings input[type=submit], #recover input[type=submit] {
+	border: none;
+	width: 202px;
+	height: 42px;
+	background: #00B4FF;
+	color: #FFF;
+	cursor: pointer;
+	text-transform: uppercase;
+	font-weight: bold;
+}
+
+#login input[type=submit]:hover, #register input[type=submit]:hover, #password input[type=submit]:hover, #settings input[type=submit]:hover, #recover input[type=submit]:hover {
+	background: #515151;
+}
+
+.small {
+	font-size: 0.9em;
+}
+
+.flash {
+	position: fixed;
+	top: 20px;
+	left: 50%;
+	margin-left: -270px;
+	display: block;
+	width: 500px;
+	list-style-type: none;
+	text-align: center;
+	padding: 10px 20px;
+	border-radius: 10px;
+	z-index: 1000;
+}
+
+.flash.success {
+	background: #D1E751;
+	background: rgba(209, 231, 81, 0.75);
+	display: none; //Hey-oh!
+}
+
+.flash.errors {
+	background: #E75F51;
+	background: rgba(231, 95, 81, 0.75);
+}
+
+#beta {
+	position: fixed;
+	bottom: -240px;
+	right: 10px;
+	height: 240px;
+	width: 260px;
+	z-index: 3;
+	background: #FFF;
+	border-radius: 5px;
+}
+
+#beta input, #beta textarea {
+	display: block;
+	width: 220px;
+	height: 20px;
+	padding: 5px 10px;
+	margin: 10px;
+	resize: none;
+	border: none;
+	border-radius: 5px;
+	background: #EEE;
+}
+
+#beta textarea {
+	height: 50px;
+}
+
+#beta input[type=submit] {
+	height: 30px;
+	width: 240px;
+	background: #00B4FF;
+	color: #FFF;
+	cursor: pointer;
+	text-transform: uppercase;
+	font-weight: bold;
+}
+
+#beta input[type=submit]:hover {
+	background: #515151;
+}
+
+#showBeta {
+	position: fixed;
+	bottom: 10px;
+	right: 10px;
+	z-index: 2;
+}
+
+
+
+/* ----- APPLICATION ----- */
+
+.driveFiles {
+	position: relative;
+	width: 100%;
+	height: 90%;
+	list-style-type: none;
+}
+
+.file {
+	position: absolute;
+	width: 48px;
+	height: 76px;
+	margin: 10px;
+	padding: 10px;
+	border: 2px solid rgba(0,0,0,0);
+}
+
+.file p {
+	background-size: contain !important;
+	display: block;
+	text-align: center;
+	padding-top: 52px;
+	width: 48px;
+	height: 30px !important;
+	word-break: break-all;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	overflow: hidden;
+}
+
+.file p.driveDocument { background: url(images/drive-icons/doc.png) no-repeat; }
+.file p.drivePresentation { background: url(images/drive-icons/presentation.png) no-repeat; }
+.file p.driveSpreadsheet { background: url(images/drive-icons/sheet.png) no-repeat; }
+.file p.driveDrawing { background: url(images/drive-icons/drawing.png) no-repeat; }
+.file p.drivePhoto { background: url(images/drive-icons/image.png) no-repeat; }
+.file p.driveAudio { background: url(images/drive-icons/audio.png) no-repeat; }
+.file p.driveVideo { background: url(images/drive-icons/video.png) no-repeat; }
+.file p.driveFile, .file p.unknown { background: url(images/drive-icons/file.png) no-repeat; }
+.file p.driveFolder{ background: url(images/drive-icons/folder.png) no-repeat; }
+.file p.driveForm { background: url(images/drive-icons/form.png) no-repeat; }
+.file p.driveFusion { background: url(images/drive-icons/fusion.png) no-repeat; }
+.file p.driveSite { background: url(images/drive-icons/site.png) no-repeat; }
+.file p.driveChart { background: url(images/drive-icons/chart.png) no-repeat; }
+.file p.driveArchive { background: url(images/drive-icons/archive.png) no-repeat; }
+.file p.excel { background: url(images/drive-icons/excel.png) no-repeat; }
+.file p.word { background: url(images/drive-icons/word.png) no-repeat; }
+.file p.powerpoint { background: url(images/drive-icons/powerpoint.png) no-repeat; }
+.file p.pdf { background: url(images/drive-icons/pdf.png) no-repeat; }
+
+.highlight {
+	border-radius: 5px;
+	border: 2px solid #EEE;
+	background: #FFF;
+	background: rgba(255,255,255,0.5);
+}
+
+.information {
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	width: 150px;
+	padding: 10px;
+	height: 50px;
+	border: 1px solid #000;
+	border-radius: 5px;
+}

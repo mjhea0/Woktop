@@ -1,0 +1,26 @@
+<% provide(:title, 'Woktop - Organize all of your online files') %>
+<h1 id="title"><%= link_to(root_url) do %>wok<span class="green">top</span><% end %></h1>
+<ul id="nav">
+	<% if !current_user %>
+	<li><%= link_to "login", login_path, :class => 'button btnSmall signBtn' %></li>
+	<% else %>
+	<li><%= link_to "profile", profile_path, :class => 'button btnSmall signBtn' %></li>
+	<li><%= link_to "logout", logout_path, :method => 'delete', :class => 'button btnSmall signBtn' %></li>
+	<% end %>
+</ul>
+<div class="container_12">
+	<%= form_for @user, url: signup_url do |f| %>
+		<%= f.text_field :email, class: "grid_6 push_3", placeholder: "Email address" %>
+		<div class="clear"></div>
+		<%= f.password_field :password, class: "grid_3 push_3", placeholder: "Password" %>
+		<%= f.password_field :password_confirmation, class: "grid_3 push_3", placeholder: "Password again" %>
+		<div class="clear"></div>
+		<%= f.submit "signup!", class: "grid_6 push_3 btnLarge" %>
+		<div class="clear"></div>
+	<% end %>
+	
+	<p class="grid_6 push_3 aligncenter">Already signed up? <%= link_to "Sign in here!", login_path %></p>
+</div>
+<div id="pan"></div>
+<div id="coils"></div>
+<div id="glow"></div>
