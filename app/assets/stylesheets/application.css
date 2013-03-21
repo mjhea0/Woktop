@@ -100,11 +100,11 @@ a:hover { color: #444; }
 
 #pan {
 	position: relative;
-	width: 920px;
-	height: 190px;
-	background: url(pan.png);
+	width: 854px;
+	height: 188px;
+	background: url(pan.png) no-repeat;
 	left: 50%;
-	margin-left: -315px;
+	margin-left: -290px;
 	margin-top: -40px;
 	z-index: 3;
 }
@@ -116,7 +116,7 @@ a:hover { color: #444; }
 	background: url(coils.png);
 	left: 50%;
 	margin-left: -265px;
-	margin-top: -50px;
+	margin-top: -55px;
 	z-index: 1;
 }
 
