@@ -3,6 +3,8 @@
 /* Version 1.0 - 03-15-13 */
 
 $(document).ready(function() {
+	$(".alert").hide().fadeIn(250).delay(5000).fadeOut(250);
+	
 	if ($.browser.webkit) {
 	    $('input').attr('autocomplete', 'off');
 	}

@@ -15,6 +15,8 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :first_name, :last_name
   validates_uniqueness_of :email
   
+  has_many :dropbox_users
+  
   has_secure_password
   
   before_save { |user| user.email = email.downcase }

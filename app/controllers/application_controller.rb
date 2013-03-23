@@ -1,4 +1,10 @@
 class ApplicationController < ActionController::Base
+  require 'dropbox_sdk'
+
+  APP_KEY = ENV["DROPBOX_APP_KEY"]
+  APP_SECRET = ENV["DROPBOX_APP_SECRET"]
+  ACCESS_TYPE = :dropbox
+  
   protect_from_forgery
   
   private
@@ -8,6 +14,6 @@ class ApplicationController < ActionController::Base
     helper_method :current_user
     
     def authorize
-      redirect_to login_url if current_use.nil?
+      redirect_to login_url if current_user.nil?
     end
 end

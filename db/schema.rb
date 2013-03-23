@@ -11,7 +11,35 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130321013808) do
+ActiveRecord::Schema.define(:version => 20130322142400) do
+
+  create_table "dropbox_users", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "access_token"
+    t.string   "referral_link"
+    t.string   "display_name"
+    t.integer  "uid"
+    t.string   "country"
+    t.float    "quota_normal"
+    t.float    "quota_shared"
+    t.float    "quota_total"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  create_table "dropboxes", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "access_token"
+    t.string   "referral_link"
+    t.string   "display_name"
+    t.integer  "uid"
+    t.string   "country"
+    t.float    "quota_normal"
+    t.float    "quota_shared"
+    t.float    "quota_total"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email"

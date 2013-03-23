@@ -1,6 +1,13 @@
 <% provide(:title, 'Woktop - Organize all of your online files') %>
 <ul id="nav">
+	<% if @auth_url %><li><%= link_to "add dropbox", @auth_url, :class => 'button btnSmall signBtn' %></li><% end %>
 	<% if current_user.full_name %><li><p><%= current_user.full_name %></p></li><% end %>
 	<li><%= link_to "edit profile", editprofile_path, :class => 'button btnSmall signBtn' %></li>
 	<li><%= link_to "logout", logout_path, :method => "delete", :class => 'button btnSmall signBtn' %></li>
 </ul>
+
+<% @dropbox_users.each do |theDropbox| %>
+	<pre>
+	<%= theDropbox.inspect %>
+	</pre>
+<% end %>
