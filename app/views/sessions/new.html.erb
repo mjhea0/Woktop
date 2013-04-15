@@ -1,8 +1,5 @@
 <% provide(:title, "Woktop - Sign in") %>
-<h1 id="title">sign<span class="green">in</span></h1>
-<ul id="nav">
-	<li><%= link_to "signup", signup_path, :class => 'button btnSmall signBtn' %></li>
-</ul>
+<h1 id="title">Sign<span class="green">in</span></h1>
 <div class="container_12">
 <%= form_tag '/login' do %>
 	<% if @errors %><div class="field_with_errors"><% end %>

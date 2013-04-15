@@ -10,13 +10,13 @@ $(document).ready(function() {
 	}
 	
 	// PROGRESS BAR
-	$(".progressBar span").hide();
+	/*$(".progressBar span").hide();
 	
 	$(".progressBar").on('mouseenter', function() {
 		$(this).find('span').stop(true, true).fadeIn(150);
 	}).on('mouseleave', function() {
 		$(this).find('span').stop(true, true).fadeOut(150);
-	});
+	});*/
 	
 	// SLIDER
 	$(".range:not(.vertical) .slide").on('mousedown', function() {
@@ -88,7 +88,10 @@ $(document).ready(function() {
 	
 	// WINDOW
 	$(".window .close").on('click', function() {
-		$(this).parentsUntil('.window').parent().fadeOut(150);
+		var $theWindow = $(this).parentsUntil('.window').parent();
+		
+		$theWindow.fadeOut(150);
+		$theWindow.next().fadeOut(150);
 	});
 	
 	$(".window.movable").drags({

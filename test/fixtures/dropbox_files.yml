@@ -1,0 +1,35 @@
+# == Schema Information
+#
+# Table name: dropbox_files
+#
+#  id              :integer          not null, primary key
+#  dropbox_user_id :integer
+#  path            :string(255)
+#  directory       :boolean
+#  rev             :string(255)
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  size            :string(255)
+#  name            :string(255)
+#  fileType        :string(255)
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  uid: 1
+  bytes: 1.5
+  path: MyString
+  directory: false
+  rev: MyString
+  hash: MyString
+  icon: MyString
+
+two:
+  uid: 1
+  bytes: 1.5
+  path: MyString
+  directory: false
+  rev: MyString
+  hash: MyString
+  icon: MyString

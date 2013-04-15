@@ -1,13 +1,99 @@
 <% provide(:title, 'Woktop - Organize all of your online files') %>
+<h1 id="title"><%= link_to(profile_url) do %>Your<span class="green">files</span><% end %></h1>
+<ul id="organizeNav">
+	<li><%= link_to "<span aria-hidden='true' class='icon-list'></span>".html_safe, profile_path, :class => 'button btnIcon signBtn' %></li>
+	<li><%= link_to "<span aria-hidden='true' class='icon-layout'></span>".html_safe, profile_path, :class => 'button btnIcon signBtn' %></li>
+	<li><%= link_to "<span aria-hidden='true' class='icon-docs'></span>".html_safe, profile_path, :class => 'button btnIcon signBtn' %></li>
+</ul>
 <ul id="nav">
-	<% if @auth_url %><li><%= link_to "add dropbox", @auth_url, :class => 'button btnSmall signBtn' %></li><% end %>
-	<% if current_user.full_name %><li><p><%= current_user.full_name %></p></li><% end %>
-	<li><%= link_to "edit profile", editprofile_path, :class => 'button btnSmall signBtn' %></li>
-	<li><%= link_to "logout", logout_path, :method => "delete", :class => 'button btnSmall signBtn' %></li>
+	<% if @auth_url %><li><%= link_to "<span aria-hidden='true' class='icon-dropbox'></span>".html_safe, @auth_url, :title => "Add Dropbox", :class => 'button btnIcon signBtn' %></li><% end %>
+	<li><%= link_to "<span aria-hidden='true' class='icon-tools'></span>".html_safe, editprofile_path, :title => "Edit Profile", :class => 'button btnIcon signBtn' %></li>
+	<li><%= link_to "<span aria-hidden='true' class='icon-logout'></span>".html_safe, logout_path, :method => "delete", :title => "Logout", :class => 'button btnIcon signBtn' %></li>
 </ul>
 
-<% @dropbox_users.each do |theDropbox| %>
-	<pre>
-	<%= theDropbox.inspect %>
-	</pre>
+<div class="infiniteLoader" data-dropbox-uids="<%= @dropbox_users.map(&:uid).join(",") %>"></div>
+
+<% if session[:new_dropbox] %>
+<div class="window" data-form-type="nameDropbox" data-dropbox-uid="<%= session[:new_dropbox] %>">
+	<div class="titleBar">
+    	<h3>Name this Dropbox</h3>
+    </div>
+    <div class="windowContent">
+    	<input type="text" name="newDropboxName" style="margin-top: 10px; width: 380px;" placeholder="My new Dropbox!">
+    </div>
+    <div class="buttons">
+    	<button>Save changes</button>
+    </div>
+</div>
+<div class="theOverlay"></div>
 <% end %>
+
+<% if !@dropbox_users.blank? %>
+<div class="window" style="display: none;" data-form-type="editFileDropbox" data-dropbox-uid="0">
+	<div class="titleBar">
+    	<h3>Edit Dropbox</h3>
+		<span class="close">x</span>
+    </div>
+    <div class="windowContent">
+    	<%= form_for @dropbox_users, url: '/dropbox/accounts/update', :method => "put" do |f| %>
+			<%= f.text_field :name, placeholder: "Name" %>
+			<%= f.hidden_field :uid, value: "0" %>
+    </div>
+    <div class="buttons">
+    		<%= f.submit "Save changes" %>
+		<% end %>
+		<button class="danger" name="dropboxRemove">Remove dropbox</button>
+    </div>
+</div>
+<div class="theOverlay" style="display: none;"></div>
+<% end %>
+
+<div class="container_12">
+	<div class="files">
+		<% if @theFiles %>
+			<% @theFiles.each do |theDropbox| %>
+				<div class='fileAccount' data-dropbox-uid='<%= theDropbox[0].uid %>'>
+				<% if theDropbox[0].name.blank? || theDropbox[0].name.nil? %>
+					<h2 class='grid_4 alpha'>Dropbox <%= theDropbox[0].uid %></h2>
+				<% else %>
+					<h2 class='grid_4 alpha'><%= theDropbox[0].name %></h2>
+				<% end %>
+					<div class="progressBar grid_6">
+					<% percent = (((theDropbox[0].quota_normal + theDropbox[0].quota_shared)/theDropbox[0].quota_total).to_f()*100).to_i() %>
+					
+					<% if percent <= 2 %>
+						<div class="progress" style="width: 2%; background-color: #FAFAFA;"><span class="desc1" style="color: #000; padding-left: 5px;"><%= percent %>%</span></div>
+					<% else %>
+						<div class="progress" style="width: <%= percent %>%;"><span class="desc1"><%= percent %>%</span></div>
+					<% end %>
+						<div class="remainder" style="width: <%= 100-percent %>%;"></div>
+					</div>
+					<ul class="dropboxTools grid_2 omega">
+						<li><a href="#"><span aria-hidden="true" class="icon-upload"></span></a></li>
+						<li><a href="#"><span aria-hidden="true" class="icon-search"></span></a></li>
+						<li><a href="#"><span aria-hidden="true" class="icon-tools"></span></a></li>
+						<li><a href="#" class="inactive"><span aria-hidden="true" class="icon-trash"></span></a></li>
+					</ul>
+					<table class='table woktopFilesList' data-dropbox-uid='<%= theDropbox[0].uid %>'>
+						<thead>
+							<th class='fileType' data-sort='string'><span>Type</span></th>
+							<th class='fileName' data-sort='filename'><span>Name</span><span class='downArrow'></span></th>
+							<th class='fileSize' data-sort='filesize'><span>Size</span></th>
+						</thead>
+						<tbody>
+						<% theDropbox[1].each do |theFile| %>
+							<tr data-dropbox-id="<%= theFile['id'] %>" data-dropbox-directory="<%= theFile['directory'] %>" data-dropbox-type="<%= theFile['fileType'] %>" data-dropbox-rev="<%= theFile['rev'] %>" data-dropbox-size="<%= theFile['size'] %>" data-dropbox-path="<%= theFile['path'] %>">
+								<td class='fileType'><div class="app-icon <%= theFile['fileType'].gsub(" ", "-").downcase %>"><%= theFile['fileType'] %></div></td>
+								<td class='fileName'><%= theFile['name'] %></td>
+								<td class='fileSize'><%= theFile['size'] %></td>
+							</tr>
+						<% end %>
+						</tbody>
+					</table>
+				</div>
+			<% end %>
+		<% else %>
+			<h2 class="aligncenter">No accounts found... how strange, try adding one!</h2>
+		<% end %>
+	</div>
+</div>

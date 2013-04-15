@@ -1,25 +1,23 @@
 <!DOCTYPE html>
-<html>
+<html ng-app>
 <head>
   <title><%= yield :title %></title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
-  <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400,700|Amatic+SC:700,400' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Lato:100,300,700|Roboto+Condensed:300,400,700' rel='stylesheet' type='text/css'>
 </head>
 <body>
 	<div class="alertHolder">
 	<% flash.each do |key, value| %>
-		<div class="alert alert-<%= key %>"><%= value %></div>
+		<div class="alert alert-<%= key %>"><span aria-hidden="true" class="icon-<%= key %>"></span><%= value %></div>
 	<% end %>
 	</div>
-		
+	
 	<%= yield %>
 	
-	<% if !current_user %>
 	<div id="footer">
 		<p>Made with love &amp; compassion by <a href="http://patrickcason.com" target="_blank">Patrick Cason</a></p>
 	</div>
-	<% end %>
 </body>
 </html>

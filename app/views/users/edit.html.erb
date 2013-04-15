@@ -1,7 +1,7 @@
 <% provide(:title, 'Woktop - Organize all of your online files') %>
-<h1 id="title">edit <span class="green">profile</span></h1>
+<h1 id="title">Edit<span class="green">Profile</span></h1>
 <ul id="nav">
-	<li><%= link_to "logout", logout_path, :method => "delete", :class => 'button btnSmall signBtn' %></li>
+	<li><%= link_to "<span aria-hidden='true' class='icon-logout'></span> logout".html_safe, logout_path, :method => "delete", :class => 'button btnSmall signBtn' %></li>
 </ul>
 <div class="container_12">
 	<%= form_for @user, url: '/profile/edit' do |f| %>

@@ -11,11 +11,22 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130322142400) do
+ActiveRecord::Schema.define(:version => 20130408004040) do
+
+  create_table "dropbox_files", :force => true do |t|
+    t.integer  "dropbox_user_id"
+    t.string   "path"
+    t.boolean  "directory"
+    t.string   "rev"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.string   "size"
+    t.string   "name"
+    t.string   "fileType"
+  end
 
   create_table "dropbox_users", :force => true do |t|
     t.integer  "user_id"
-    t.string   "access_token"
     t.string   "referral_link"
     t.string   "display_name"
     t.integer  "uid"
@@ -23,8 +34,12 @@ ActiveRecord::Schema.define(:version => 20130322142400) do
     t.float    "quota_normal"
     t.float    "quota_shared"
     t.float    "quota_total"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+    t.string   "access_token_key"
+    t.string   "access_token_secret"
+    t.string   "name"
+    t.string   "root_hash"
   end
 
   create_table "dropboxes", :force => true do |t|

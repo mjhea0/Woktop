@@ -15,6 +15,7 @@ end
 
 group :assets do
   gem 'uglifier', '>= 1.0.3'
+  gem 'angularjs-rails'
 end
 
 group :production do

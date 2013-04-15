@@ -1,11 +1,9 @@
 <% provide(:title, 'Woktop - Organize all of your online files') %>
-<h1 id="title"><%= link_to(root_url) do %>wok<span class="green">top</span><% end %></h1>
+<h1 id="title"><%= link_to(root_url) do %>Wok<span class="green">top</span><% end %></h1>
 <ul id="nav">
-	<% if !current_user %>
-	<li><%= link_to "login", login_path, :class => 'button btnSmall signBtn' %></li>
-	<% else %>
-	<li><%= link_to "profile", profile_path, :class => 'button btnSmall signBtn' %></li>
-	<li><%= link_to "logout", logout_path, :method => 'delete', :class => 'button btnSmall signBtn' %></li>
+	<% if current_user %>
+	<li><%= link_to "<span aria-hidden='true' class='icon-house'></span> profile".html_safe, profile_path, :class => 'button btnSmall signBtn' %></li>
+	<li><%= link_to "<span aria-hidden='true' class='icon-logout'></span> logout".html_safe, logout_path, :method => 'delete', :class => 'button btnSmall signBtn' %></li>
 	<% end %>
 </ul>
 <div class="container_12">

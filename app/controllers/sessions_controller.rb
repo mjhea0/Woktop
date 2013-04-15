@@ -8,7 +8,11 @@ class SessionsController < ApplicationController
     
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
-      flash[:success] = "Welcome back!"
+      if !user.first_name.blank?
+        flash[:success] = "Welcome back " + user.first_name + "!"
+      else
+        flash[:success] = "Welcome back!"
+      end
       redirect_to profile_url
     else
       @errors = true

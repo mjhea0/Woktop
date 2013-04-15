@@ -6,6 +6,11 @@ class UsersController < ApplicationController
   def show
     @user = User.find(session[:user_id])
     @dropbox_users = @user.dropbox_users
+    @theFiles = Hash.new([])
+    
+    @dropbox_users.each do |theDropbox|
+      @theFiles[theDropbox] = theDropbox.dropbox_files
+    end
     
     dropboxSession = DropboxSession.new(APP_KEY, APP_SECRET)
     dropboxSession.get_request_token

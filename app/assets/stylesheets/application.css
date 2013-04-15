@@ -16,8 +16,8 @@ html { overflow-x: hidden; }
 
 body {
 	background: #FAFAFA;
-	font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;
-	position: relative;
+	font-family: 'Lato', Helvetica, Arial, sans-serif;
+	font-weight: 300;
 }
 
 a {
@@ -30,40 +30,51 @@ a {
 }
 
 a:hover { color: #444; }
+a.inactive { color: #CCC; cursor: default; }
+
+h1, h2, h3, h4 { margin-bottom: 5px; }
+
+::-moz-selection{ background: #A1C820; color: #FFF; }
+::selection { background: #A1C820; color: #FFF; }
 
 .container_12 { position: relative; z-index: 4; }
 .aligncenter { text-align: center; }
 
 #title {
-	font-size: 9em;
-	font-family: 'Amatic SC', Georgia, serif;
+	font-size: 6em;
+	font-family: 'Roboto Condensed', Georgia, serif;
 	margin: 0px;
+	margin-bottom: 20px;
+	font-weight: normal;
 	text-align: center;
+	text-transform: lowercase;
 }
 
 #title a { color: #000; }
 
 .green { color: #A1C820; }
 
-#nav {
-	position: absolute;
-	top: 10px;
-	right: 40px;
+#nav, #organizeNav {
+	position: fixed;
+	top: 0px;
 	list-style-type: none;
 	padding: 0px;
 	margin: 0px;
 	overflow: hidden;
+	z-index: 10;
 }
+
+#nav { right: 10px; }
+#organizeNav { left: 10px; }
 
 #nav li {
 	float: left;
 	margin-left: 10px;
 }
 
-#nav p {
-	line-height: 35px;
-	font-weight: 300;
-	margin: 0px;
+#organizeNav li {
+	float: left;
+	margin-right: 10px;
 }
 
 .formErrors {
@@ -82,13 +93,14 @@ a:hover { color: #444; }
 
 .alertHolder {
 	position: absolute;
-	top: 10px;
-	left: 10px;
-	width: 200px;
+	top: 0px;
+	left: 50%;
+	width: 300px;
+	margin-left: -150px;
 }
 
 .alert {
-	width: 200px;
+	width: 300px;
 	min-height: 35px;
 	line-height: 35px;
 	text-align: center;
@@ -105,7 +117,9 @@ a:hover { color: #444; }
 
 .alert.alert-error { background: #c92a35; }
 .alert.alert-notice { background: #c9c32a; }
-.alert.alert-success { background: #84c92a; }
+.alert.alert-success { background: #A1C820; }
+
+.alert span { padding-right: 5px; }
 
 .field_with_errors input { background: #e7c1bd !important; }
 
@@ -155,8 +169,116 @@ a:hover { color: #444; }
 
 #footer {
 	text-align: center;
-	font-family: 'Amatic SC', Georgia, serif;
+	font-size: 0.75em;
+	font-weight: 100;
+	font-family: 'Lato', Helvetica, Arial, sans-serif;
 }
+
+@font-face {
+	font-family: 'woktop-icons';
+	src:url('woktop-icons.eot');
+	src:url('woktop-icons.eot?#iefix') format('embedded-opentype'),
+		url('woktop-icons.woff') format('woff'),
+		url('woktop-icons.ttf') format('truetype'),
+		url('woktop-icons.svg#woktop-icons') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+.icon-user-add, .icon-logout, .icon-login, .icon-dropbox, .icon-google-drive, .icon-tools, .icon-upload, .icon-trash, .icon-success, .icon-notice, .icon-error, .icon-cycle, .icon-vcard, .icon-house, .icon-search, .icon-success, .icon-layout, .icon-list, .icon-docs {
+	font-family: 'woktop-icons';
+	speak: none;
+	font-style: normal;
+	font-size: 16px;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	-webkit-font-smoothing: antialiased;
+}
+.icon-user-add:before {
+	content: "\e000";
+}
+.icon-logout:before {
+	content: "\e001";
+}
+.icon-login:before {
+	content: "\e002";
+}
+.icon-dropbox:before {
+	content: "\e003";
+}
+.icon-google-drive:before {
+	content: "\e004";
+}
+.icon-tools:before {
+	content: "\e006";
+}
+.icon-upload:before {
+	content: "\e005";
+}
+.icon-trash:before {
+	content: "\e007";
+}
+.icon-notice:before {
+	content: "\e008";
+}
+.icon-help:before {
+	content: "\e009";
+}
+.icon-error:before {
+	content: "\e00a";
+}
+.icon-cycle:before {
+	content: "\e00b";
+}
+.icon-vcard:before {
+	content: "\e00c";
+}
+.icon-house:before {
+	content: "\e00d";
+}
+.icon-search:before {
+	content: "\e00e";
+}
+.icon-success:before {
+	content: "\e00f";
+}
+.icon-layout:before {
+	content: "\e010";
+}
+.icon-list:before {
+	content: "\e011";
+}
+.icon-docs:before {
+	content: "\e012";
+}
+
+.app-icon {
+	background-image: url('woktop-icons.png');
+	background-repeat: no-repeat;
+	width: 64px;
+	height: 64px;
+	display: block;
+	overflow: hidden;
+	text-indent: -99999px;
+}
+
+.woktopFilesList .app-icon { margin: 0 auto; }
+.app-icon.audio-file { background-position: -3px -3px; }
+.app-icon.code-file { background-position: -74px -3px; }
+.app-icon.document { background-position: -142px -3px; }
+.app-icon.dvd-file { background-position: -217px -3px; }
+.app-icon.microsoft-excel { background-position: -3px -74px; }
+.app-icon.flash-file { background-position: -217px -74px; }
+.app-icon.folder { background-position: -140px -74px; }
+.app-icon.image-file { background-position: -217px -74px; }
+.app-icon.package { background-position: 2px -145px; }
+.app-icon.pdf-file { background-position: -74px -145px; }
+.app-icon.microsoft-powerpoint { background-position: -145px -145px; }
+.app-icon.text-file { background-position: -217px -145px; }
+.app-icon.unknown-file { background-position: 2px -216px; }
+.app-icon.microsoft-word { background-position: -74px -216px; }
+.app-icon.zip-archive { background-position: -140px -216px; }
 
 @-webkit-keyframes theGlow {
 	0% { opacity: 1; }
@@ -187,4 +309,5 @@ only screen and (                min-resolution: 192dpi),
 only screen and (                min-resolution: 2dppx) {
 	#pan { background: url(pan@2x.png); background-size: contain; }
 	#coils { background: url(coils@2x.png); background-size: contain; }
+	.app-icon { background-image: url('woktop-icons@2x.png'); background-size: 270px; }
 }
