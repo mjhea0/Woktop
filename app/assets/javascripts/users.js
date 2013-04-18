@@ -1,20 +1,87 @@
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.
 
-$(document).ready(function() {
+var app = angular.module('woktop', []);
+
+app.controller('DropboxCtrl', function($scope, dropbox) {
+  	$scope.dropboxAccounts = dropbox.getAccounts();
+	$scope.dropboxFiles = dropbox.getFiles();
+	
+	$scope.$watch(function() {
+	    sortTables();
+	
+		var $infiniteLoader = $(".infiniteLoader");
+		var theUIDS = $infiniteLoader.attr('data-dropbox-uids').split(',');
+		var $files = $(".files");
+		var $additional = $("#title, #footer");
+	
+		//$infiniteLoader.stop(true, true).fadeOut(250);
+		$additional.fadeIn(500);
+		$files.each(function() {
+			if($(this).hasClass('listView'))
+				$(this).fadeIn(500);
+		});
+		//animateProgressBars();
+	});
+
+	$scope.getPercent = function(theDropbox) {
+		return parseInt(parseFloat((theDropbox.quota_normal + theDropbox.quota_shared)/theDropbox.quota_total)*100);
+	}
+	
+	$scope.getIcon = function(theFile) {
+		return theFile.fileType.split(' ').join('-').toLowerCase();
+	}
+});
+
+app.factory('dropbox', function($http, $q) {
 	var $infiniteLoader = $(".infiniteLoader");
+	var theUIDS = $infiniteLoader.attr('data-dropbox-uids').split(',');
 	var $files = $(".files");
 	var $additional = $("#title, #footer");
-	var theUIDS = $infiniteLoader.attr('data-dropbox-uids').split(',');
 	
+	$files.hide();
+	$additional.hide();
+	//$infiniteLoader.stop(true, true).fadeIn(250);
+	
+	return {
+		getAccounts: function() {
+			var promises = [];
+
+			for(i = 0; i < theUIDS.length; i++) {
+				promises.push($http({
+					url: '/dropbox/accounts/get', 
+		  			method: "GET",
+		  			params: { uid: theUIDS[i] }
+				}));
+			}
+
+			return $q.all(promises);
+		},
+		getFiles: function() {
+			var promises = [];
+
+			for(i = 0; i < theUIDS.length; i++) {
+				promises.push($http({
+					url: '/dropbox/files/get', 
+		  			method: "GET",
+		  			params: { uid: theUIDS[i] }
+				}));
+			}
+
+			return $q.all(promises);
+		}
+	}
+});
+
+function sortTables() {
 	//Load in table sorting
-	$('.woktopFilesList').stupidtable({
+	$('.table.woktopFilesList').stupidtable({
 		"filename" : function(a, b) {
-    	a = a.toLowerCase();
+    		a = a.toLowerCase();
 			b = b.toLowerCase();
 			
 			if (a<b) return -1; if (a>b) return +1; return 0;
-    },
+    	},
 		"filesize" : function(a, b) {
 			if(typeof a === "string") {
 				if(a.indexOf("-") != -1)
@@ -46,14 +113,38 @@ $(document).ready(function() {
 		var arrow = data.direction === "asc" ? "up" : "down";
 		th.eq(data.column).append('<span class="' + arrow + 'Arrow"></span>');
 	});
+}
+
+function animateProgressBars() {
+	$(".progressBar").each(function() {
+		var theDesc = $(this).find('.desc1');
+		var theBar = $(this).find('.progress');
+		var theAmount = theDesc.text();
+	
+		if(parseInt(theAmount.slice(0, -1)) > 2) {
+			theDesc.text('0%');
+			theBar.css('width', '0%').delay(500).animate({
+				width: theAmount
+			}, { duration: 1000, step: function(now) {
+				theDesc.text(parseInt(now) + "%");
+			}});
+		}
+	});
+}
+
+$(document).ready(function() {
+	var $infiniteLoader = $(".infiniteLoader");
+	var $files = $(".files");
+	var $additional = $("#title, #footer");
+	var theUIDS = $infiniteLoader.attr('data-dropbox-uids').split(',');
 	
 	//Kill inactive buttons
 	$(document).on('click', '.inactive', function(event) { event.preventDefault(); });
 	
-	//Add table selection
-	$(document).on('click', '.woktopFilesList tbody tr', function(event) {
+	//Add file selection
+	$(document).on('click', '.file', function(event) {
 		var whichUID = $(this).parents('.woktopFilesList').attr('data-dropbox-uid');
-		var myLoop = $(".woktopFilesList[data-dropbox-uid=" + whichUID + "] tbody tr");
+		var myLoop = $(".woktopFilesList[data-dropbox-uid=" + whichUID + "] .file");
 		
 		if(event.shiftKey) {
 			var theIndex = $(this).index();
@@ -133,7 +224,7 @@ $(document).ready(function() {
 				var theUID = $(this).parents('.fileAccount').attr('data-dropbox-uid');
 				var fileIDS = "";
 				
-				$(this).parents('.fileAccount').find('.woktopFilesList tbody tr').each(function() {
+				$(this).parents('.fileAccount').find('.file').each(function() {
 					if($(this).hasClass('selected'))
 						fileIDS += $(this).attr('data-dropbox-id') + ",";
 				});
@@ -143,7 +234,7 @@ $(document).ready(function() {
 				$.get('/dropbox/files/delete', { uid: theUID, fileids: fileIDS }, function(data) {
 					if(data != null || data != "")
 						$.each(data, function(key) {
-							$('.woktopFilesList[data-dropbox-uid=' + theUID + '] tbody tr[data-dropbox-id=' + data[key] + ']').remove();
+							$('.woktopFilesList[data-dropbox-uid=' + theUID + '] .file[data-dropbox-id=' + data[key] + ']').remove();
 						});
 				});
 			}
@@ -176,101 +267,17 @@ $(document).ready(function() {
 		
 		$(this).addClass("selected");
 		
-		if(theIcon == "icon-list")
-			loadData('list');
-		else if(theIcon == "icon-layout")
-			loadData('layout');
-		else
-			loadData('desktop');
-	});
-	
-	//Load in our data
-	function loadData(whatView) {
-		if($infiniteLoader.attr('data-dropbox-uids') != "") {
-			$.each(theUIDS, function(key) {
-				$theAccount = $(".fileAccount[data-dropbox-uid=" + theUIDS[key] + "]");
-				
-				$.get('/dropbox/files/get', { uid: theUIDS[key] }, function(data) {
-					if(data != undefined) {
-						var table = "";
-				
-						$.each(data, function(key) {
-								table += "<tr" +
-									" data-dropbox-id='" + data[key].id +
-									"' data-dropbox-directory='" + data[key].directory +
-									"' data-dropbox-type='" + data[key].fileType +
-									"' data-dropbox-rev='" + data[key].rev +
-									"' data-dropbox-size='" + data[key].size +
-									"' data-dropbox-path='" + data[key].path + "'>";
-							
-								table += "<td class='fileType'><div class='app-icon " + data[key].fileType.split(' ').join('-').toLowerCase() + "'>" + data[key].name + "</div></td>";
-								table += "<td class='fileName'>" + data[key].name + "</td>";
-								table += "<td class='fileSize'>" + data[key].size + "</td>";
-						
-								table += "</tr>";
-						});
-				
-						$theAccount.find('tbody').html(table);
-					}
-				});
-				
-				$.get('/dropbox/accounts/get', { uid: theUIDS[key] }, function(accountData) {
-					if(accountData != undefined) {
-						var percent = parseInt(parseFloat((accountData.quota_normal + accountData.quota_shared)/accountData.quota_total)*100);
-						var theProgress = "";
-					
-						if(accountData.name == "" || accountData.name == null)
-							$theAccount.find('h2').text("Dropbox " + theUIDS[key]);
-						else
-							$theAccount.find('h2').text(accountData.name);
-						
-						if(percent <= 2)
-							theProgress += '<div class="progress" style="width: 2%; background-color: #FAFAFA;"><span class="desc1" style="color: #000; padding-left: 5px;">' + percent + '%</span></div>';
-						else
-							theProgress += '<div class="progress" style="width: ' + percent + '%;"><span class="desc1">' + percent + '%</span></div>';
-						
-						theProgress += '<div class="remainder" style="width: ' + parseInt(100-percent) + '%;"></div>';
-					
-						$theAccount.find('.progressBar').html(theProgress);
-					}
-				});
-			});
-		}
-		else
-			$files.html('<h2 class="aligncenter">No accounts found... how strange, try adding one!</h2>');
-	}
-	
-	//Hide files/show loader before AJAX starts
-	$(document).ajaxStart(function() {
-		$files.hide();
-		$additional.hide();
-		$infiniteLoader.stop(true, true).fadeIn(250);
-	});
-	
-	//Hide loader/show files after AJAX stops
-	$(document).ajaxStop(function() {
-		$infiniteLoader.stop(true, true).fadeOut(250);
-		$additional.fadeIn(500);
-		$files.fadeIn(500);
-		animateProgressBars();
-	});
-	
-	function animateProgressBars() {
-		$(".progressBar").each(function() {
-			var theDesc = $(this).find('.desc1');
-			var theBar = $(this).find('.progress');
-			var theAmount = theDesc.text();
-		
-			if(parseInt(theAmount.slice(0, -1)) > 2) {
-				theDesc.text('0%');
-				theBar.css('width', '0%').delay(500).animate({
-					width: theAmount
-				}, { duration: 1000, step: function(now) {
-					theDesc.text(parseInt(now) + "%");
-				}});
-			}
+		$files.each(function() {
+			$(this).hide();
 		});
-	}
+		
+		if(theIcon == "icon-list") 
+			$(".files.listView").fadeIn(500);
+		else if(theIcon == "icon-layout")
+			$(".files.thumbnailView").fadeIn(500);
+		else
+			$(".files.desktopView").fadeIn(500);
+	});
 	
 	$("#nav, #organizeNav").css('top', -36).delay(1000).animate({top: 0}, 250);
 	$("#organizeNav a.btnIcon:first").trigger('click');

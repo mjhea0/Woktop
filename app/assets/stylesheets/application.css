@@ -40,6 +40,10 @@ h1, h2, h3, h4 { margin-bottom: 5px; }
 .container_12 { position: relative; z-index: 4; }
 .aligncenter { text-align: center; }
 
+.alignleft { text-align: left; }
+.aligncenter { text-align: center; }
+.alignright { text-align: right; }
+
 #title {
 	font-size: 6em;
 	font-family: 'Roboto Condensed', Georgia, serif;
@@ -264,21 +268,21 @@ h1, h2, h3, h4 { margin-bottom: 5px; }
 }
 
 .woktopFilesList .app-icon { margin: 0 auto; }
-.app-icon.audio-file { background-position: -3px -3px; }
-.app-icon.code-file { background-position: -74px -3px; }
-.app-icon.document { background-position: -142px -3px; }
-.app-icon.dvd-file { background-position: -217px -3px; }
-.app-icon.microsoft-excel { background-position: -3px -74px; }
-.app-icon.flash-file { background-position: -217px -74px; }
-.app-icon.folder { background-position: -140px -74px; }
-.app-icon.image-file { background-position: -217px -74px; }
-.app-icon.package { background-position: 2px -145px; }
-.app-icon.pdf-file { background-position: -74px -145px; }
-.app-icon.microsoft-powerpoint { background-position: -145px -145px; }
-.app-icon.text-file { background-position: -217px -145px; }
-.app-icon.unknown-file { background-position: 2px -216px; }
-.app-icon.microsoft-word { background-position: -74px -216px; }
-.app-icon.zip-archive { background-position: -140px -216px; }
+.app-icon.audio-file { background-position: 3px -3px; }
+.app-icon.code-file { background-position: -68px -3px; }
+.app-icon.document { background-position: -137px -3px; }
+.app-icon.dvd-file { background-position: -211px -3px; }
+.app-icon.microsoft-excel { background-position: 3px -74px; }
+.app-icon.flash-file { background-position: -211px -74px; }
+.app-icon.folder { background-position: -138px -74px; }
+.app-icon.image-file { background-position: -211px -74px; }
+.app-icon.package { background-position: 5px -145px; }
+.app-icon.pdf-file { background-position: -68px -145px; }
+.app-icon.microsoft-powerpoint { background-position: -139px -145px; }
+.app-icon.text-file { background-position: -211px -145px; }
+.app-icon.unknown-file { background-position: 6px -216px; }
+.app-icon.microsoft-word { background-position: -68px -216px; }
+.app-icon.zip-archive { background-position: -138px -216px; }
 
 @-webkit-keyframes theGlow {
 	0% { opacity: 1; }

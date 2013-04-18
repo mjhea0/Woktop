@@ -17,11 +17,9 @@
 }
 
 .files { margin-top: 20px; }
-.fileAccount { margin-bottom: 20px; border-bottom: 1px solid #CCC; }
-.fileAccount:last-of-type { border-bottom: none; }
-.files .woktopFilesList { width: 100%; }
+.files .table.woktopFilesList { width: 100%; }
 
-.files .woktopFilesList td { cursor: pointer; }
+.files .table.woktopFilesList td { cursor: pointer; }
 
 .files .progressBar {
 	margin-top: 20px;
@@ -47,11 +45,62 @@
 
 .files .dropboxTools span { font-size: 1.25em; }
 
-.woktopFilesList .fileType, .woktopFilesList .fileSize { width: 10%; }
+.table.woktopFilesList td.fileType, .table.woktopFilesList td.fileSize { width: 10%; }
 
-.woktopFilesList tr.selected, .woktopFilesList tr.selected:hover {
+.woktopFilesList .selected, .woktopFilesList .selected:hover {
 	background: #444;
 	color: #FFF;
 	text-shadow: 0px 1px #000;
 	border-bottom: 1px solid #222;
+}
+
+.woktopFilesList li.selected, .woktopFilesList li.selected:hover {
+	border-bottom: none;
+	border: 1px solid #222;
+}
+
+ul.woktopFilesList {
+	overflow: hidden;
+	padding: 0px 10px !important;
+	margin: 0px !important;
+	background: #FFF;
+	border: 1px solid #CCC;
+}
+
+ul.woktopFilesList li {
+	height: 160px;
+	overflow: hidden;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	padding: 10px;
+	border: 1px solid #FFF;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	transition: 0.1s linear all;
+	-webkit-transition: 0.1s linear all;
+	-moz-transition: 0.1s linear all;
+	-ms-transition: 0.1s linear all;
+	-o-transition: 0.1s linear all;
+	cursor: pointer;
+}
+
+ul.woktopFilesList li:hover {
+	background-color: #fafafa;
+}
+
+.progressLittle {
+	width: 2% !important;
+	background-color: #FAFAFA !important;
+}
+
+.progressLittle span {
+	color: #000 !important;
+	padding-left: 5px !important;
 }
