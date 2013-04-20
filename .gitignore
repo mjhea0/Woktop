@@ -16,3 +16,7 @@
 
 # Ignore application configuration
 /config/application.yml
+
+# Other files
+/extra
+/design

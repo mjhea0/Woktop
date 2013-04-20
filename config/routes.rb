@@ -22,6 +22,11 @@ Woktop::Application.routes.draw do
   get 'dropbox/accounts/delete', to: 'dropbox_users#removeAccount', as: 'dropboxRemoveAccount'
   
   get 'dropbox/files/delete', to: 'dropbox_files#removeFiles', as: 'dropboxRemoveFiles'
+  get 'dropbox/files/download', to: 'dropbox_files#getFile', as: 'dropboxDownloadFile'
+  
+  get "about", to: "static#about"
+  get "policy", to: "static#policy"
+  get "terms", to: "static#terms"
    
   root to: 'users#new'
 end

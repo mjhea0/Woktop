@@ -48,6 +48,7 @@ h1, h2, h3, h4 { margin-bottom: 5px; }
 	font-size: 6em;
 	font-family: 'Roboto Condensed', Georgia, serif;
 	margin: 0px;
+	margin-top: 40px;
 	margin-bottom: 20px;
 	font-weight: normal;
 	text-align: center;
@@ -189,7 +190,7 @@ h1, h2, h3, h4 { margin-bottom: 5px; }
 	font-style: normal;
 }
 
-.icon-user-add, .icon-logout, .icon-login, .icon-dropbox, .icon-google-drive, .icon-tools, .icon-upload, .icon-trash, .icon-success, .icon-notice, .icon-error, .icon-cycle, .icon-vcard, .icon-house, .icon-search, .icon-success, .icon-layout, .icon-list, .icon-docs {
+.icon-user-add, .icon-logout, .icon-login, .icon-dropbox, .icon-google-drive, .icon-tools, .icon-upload, .icon-trash, .icon-success, .icon-notice, .icon-help, .icon-error, .icon-cycle, .icon-vcard, .icon-house, .icon-search, .icon-success, .icon-layout, .icon-list, .icon-docs {
 	font-family: 'woktop-icons';
 	speak: none;
 	font-style: normal;

@@ -16,6 +16,7 @@
 	z-index: 100;
 }
 
+.fileAccount { margin-bottom: 20px; overflow: visible; }
 .files { margin-top: 20px; }
 .files .table.woktopFilesList { width: 100%; }
 
@@ -58,6 +59,11 @@
 	border-bottom: none;
 	border: 1px solid #222;
 }
+
+.file a { color: #000; }
+.file a:hover { color: #000; text-decoration: underline; }
+.file.selected a { color: #FFF; }
+.file.selected a:hover { color: #FFF; }
 
 ul.woktopFilesList {
 	overflow: hidden;

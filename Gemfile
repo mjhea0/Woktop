@@ -11,6 +11,7 @@ group :development do
   gem 'sqlite3', '1.3.5'
   gem 'pry', '0.9.11.4'
   gem 'annotate', '2.5.0'
+  gem 'rails-erd'
 end
 
 group :assets do
