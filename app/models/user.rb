@@ -16,6 +16,7 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :email
   
   has_many :dropbox_users
+  has_many :drive_users
   
   has_secure_password
   

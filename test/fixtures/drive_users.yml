@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  display_name: 
+  quota_total: 1.5
+  quota_used: 1.5
+  quota_trash: 1.5
+  root_id: 
+  picture: 
+  name: 
+  access_token: 
+  uid: 1
+
+two:
+  display_name: 
+  quota_total: 1.5
+  quota_used: 1.5
+  quota_trash: 1.5
+  root_id: 
+  picture: 
+  name: 
+  access_token: 
+  uid: 1

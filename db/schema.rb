@@ -11,7 +11,35 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130408004040) do
+ActiveRecord::Schema.define(:version => 20130420194752) do
+
+  create_table "drive_files", :force => true do |t|
+    t.integer  "drive_user_id"
+    t.string   "file_id"
+    t.string   "download_link"
+    t.string   "name"
+    t.string   "fileType"
+    t.string   "description"
+    t.float    "size"
+    t.string   "path"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  create_table "drive_users", :force => true do |t|
+    t.string   "display_name"
+    t.float    "quota_total"
+    t.float    "quota_used"
+    t.float    "quota_trash"
+    t.string   "root_id"
+    t.string   "picture"
+    t.string   "name"
+    t.string   "access_token"
+    t.integer  "uid"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+    t.integer  "user_id"
+  end
 
   create_table "dropbox_files", :force => true do |t|
     t.integer  "dropbox_user_id"

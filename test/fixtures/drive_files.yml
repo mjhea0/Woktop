@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  drive_user_id: 1
+  file_id: MyString
+  download_link: MyString
+  name: MyString
+  fileType: MyString
+  description: MyString
+  size: 1.5
+  path: MyString
+
+two:
+  drive_user_id: 1
+  file_id: MyString
+  download_link: MyString
+  name: MyString
+  fileType: MyString
+  description: MyString
+  size: 1.5
+  path: MyString
