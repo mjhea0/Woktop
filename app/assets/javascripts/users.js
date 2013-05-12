@@ -5,7 +5,7 @@ var app = angular.module('woktop', []);
 
 app.controller('DropboxCtrl', function($scope, dropbox) {
   	$scope.dropboxAccounts = dropbox.getAccounts();
-	$scope.dropboxFiles = dropbox.getFiles();
+	$scope.dropboxFiles = dropbox.getRoot();
 	
 	$scope.$watch(function() {
 	    sortTables();
@@ -57,12 +57,12 @@ app.factory('dropbox', function($http, $q) {
 
 			return $q.all(promises);
 		},
-		getFiles: function() {
+		getRoot: function() {
 			var promises = [];
 
 			for(i = 0; i < theUIDS.length; i++) {
 				promises.push($http({
-					url: '/dropbox/files/get', 
+					url: '/dropbox/root/get', 
 		  			method: "GET",
 		  			params: { uid: theUIDS[i] }
 				}));

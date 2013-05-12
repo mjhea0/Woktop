@@ -45,7 +45,7 @@ class DropboxUsersController < ApplicationController
     redirect_to profile_url
   end
   
-  def getFiles
+  def getRoot
     uid = params[:uid]
     
     if params[:path]
@@ -55,6 +55,7 @@ class DropboxUsersController < ApplicationController
     end
     
     user = current_user
+
     theDropbox = DropboxUser.find_by_uid_and_user_id(uid, user.id)
     
     dropboxSession = DropboxSession.new(APP_KEY, APP_SECRET)
@@ -79,6 +80,13 @@ class DropboxUsersController < ApplicationController
         thePath = getThePath(theContents['path'])
         theName = getTheName(theContents['path'])
         theType = getTheType(theContents['icon'])
+        isDir = theContents['is_dir']
+        hash = nil
+
+        if(isDir)
+          file_data = dropboxClient.metadata(theContents['path'])
+          hash = file_data['hash']
+        end
         
         newFile = theDropbox.dropbox_files.create(
           :size => theSize,
@@ -86,7 +94,9 @@ class DropboxUsersController < ApplicationController
           :directory => theContents['is_dir'],
           :rev => theContents['rev'],
           :fileType => theType,
-          :name => theName)
+          :name => theName,
+          :folderHash => hash,
+          :parent_hash => theDropbox.root_hash)
       end
       
       theDropbox.update_attributes(:root_hash => @getFiles['hash'])

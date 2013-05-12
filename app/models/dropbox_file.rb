@@ -12,10 +12,12 @@
 #  size            :string(255)
 #  name            :string(255)
 #  fileType        :string(255)
+#  parent_hash     :string(255)
+#  folderHash      :string(255)
 #
 
 class DropboxFile < ActiveRecord::Base
-  attr_accessible :size, :directory, :fileType, :path, :rev, :dropbox_user_id, :name
+  attr_accessible :size, :directory, :fileType, :path, :rev, :dropbox_user_id, :name, :folderHash, :parent_hash
   
   belongs_to :dropbox_user
 end

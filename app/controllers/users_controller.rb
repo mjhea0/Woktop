@@ -8,6 +8,7 @@ class UsersController < ApplicationController
     @dropbox_users = @user.dropbox_users
     
     dropboxSession = DropboxSession.new(APP_KEY, APP_SECRET)
+
     dropboxSession.get_request_token
 
     @auth_url = dropboxSession.get_authorize_url url_for(dropboxAuth_url)
