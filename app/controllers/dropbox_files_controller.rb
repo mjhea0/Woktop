@@ -42,4 +42,22 @@ class DropboxFilesController < ApplicationController
     returnedFile = dropboxClient.get_file(theFile[:path].gsub('%20', ' ' ))
     send_data(returnedFile, :filename => theFile[:name])
   end
+
+  def getFiles
+    uid = params[:uid]
+    user = current_user
+    
+    theDropbox = DropboxUser.find_by_uid_and_user_id(uid, user.id)
+  
+    dropboxSession = DropboxSession.new(APP_KEY, APP_SECRET)
+    access_token = dropboxSession.set_access_token(theDropbox.access_token_key, theDropbox.access_token_secret)
+  
+    dropboxClient = DropboxClient.new(dropboxSession, ACCESS_TYPE)
+
+    path = params['path'].gsub('%20', ' ')
+
+    metadata = dropboxClient.metadata(path)
+
+  end
+
 end

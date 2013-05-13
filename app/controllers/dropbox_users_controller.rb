@@ -81,12 +81,6 @@ class DropboxUsersController < ApplicationController
         theName = getTheName(theContents['path'])
         theType = getTheType(theContents['icon'])
         isDir = theContents['is_dir']
-        hash = nil
-
-        if(isDir)
-          file_data = dropboxClient.metadata(theContents['path'])
-          hash = file_data['hash']
-        end
         
         newFile = theDropbox.dropbox_files.create(
           :size => theSize,
@@ -94,9 +88,7 @@ class DropboxUsersController < ApplicationController
           :directory => theContents['is_dir'],
           :rev => theContents['rev'],
           :fileType => theType,
-          :name => theName,
-          :folderHash => hash,
-          :parent_hash => theDropbox.root_hash)
+          :name => theName)
       end
       
       theDropbox.update_attributes(:root_hash => @getFiles['hash'])

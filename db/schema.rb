@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130512210359) do
+ActiveRecord::Schema.define(:version => 20130513185222) do
 
   create_table "dropbox_files", :force => true do |t|
     t.integer  "dropbox_user_id"
@@ -23,8 +23,6 @@ ActiveRecord::Schema.define(:version => 20130512210359) do
     t.string   "size"
     t.string   "name"
     t.string   "fileType"
-    t.string   "parent_hash"
-    t.string   "folderHash"
   end
 
   create_table "dropbox_users", :force => true do |t|

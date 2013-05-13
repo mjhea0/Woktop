@@ -202,16 +202,18 @@ $(document).ready(function() {
 	});
 	
 	//Handle file click
-	$(document).on('click', '.file a', function(event) {
-		event.preventDefault();
-		var theUID = $(this).parents('.woktopFilesList').attr('data-dropbox-uid');
-		
-		if($(this).attr('data-dropbox-directory') == "true") {
-			alert("This is a directory!");
-		}
-		else
-			window.open('/dropbox/files/download?uid=' + theUID + '&fileid=' + $(this).attr('data-dropbox-id'));
-	});
+        $(document).on('click', '.file a', function(event) {
+                event.preventDefault();
+                var theUID = $(this).parents('.woktopFilesList').attr('data-dropbox-uid');
+
+                if($(this).attr('data-dropbox-directory') == "true") {
+                        $.get('/dropbox/files/get', { uid: theUID, path: $(this).parents('tr').attr('data-dropbox-path') }, function(data) {
+                                alert(data);
+                        });
+                }
+                else
+                        window.open('/dropbox/files/download?uid=' + theUID + '&fileid=' + $(this).attr('data-dropbox-id'));
+        });
 	
 	//Handle Dropbox tools functions
 	$(document).on('click', '.dropboxTools a', function(event) {
