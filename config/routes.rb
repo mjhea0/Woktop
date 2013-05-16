@@ -15,7 +15,7 @@ Woktop::Application.routes.draw do
   delete 'logout', to: 'sessions#destroy', as: 'logout'
   
   get 'dropbox/new', to: 'dropbox_users#authorize', as: 'dropboxAuth'
-  get 'dropbox/root/get', to: 'dropbox_users#getRoot', as: 'dropboxGetRoot'
+  get 'dropbox/root/get', to: 'dropbox_files#getRoot', as: 'dropboxGetRoot'
   get 'dropbox/files/get', to: 'dropbox_files#getFiles', as: 'dropboxGetFiles'
   get 'dropbox/accounts/get', to: 'dropbox_users#getAccount', as: 'dropboxGetAccount'
   get 'dropbox/accounts/update', to: 'dropbox_users#updateAccount', as: 'dropboxUpdateAccount'

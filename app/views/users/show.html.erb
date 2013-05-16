@@ -70,7 +70,7 @@
 					<th class='fileSize' data-sort='filesize'><span>Size</span></th>
 				</thead>
 				<tbody ng-repeat="dbFiles in dropboxFiles | filter:dropbox.data.uid">
-					<tr class="file" ng-repeat="file in dbFiles.data" data-dropbox-id="{{file.id}}" data-dropbox-directory="{{file.directory}}" data-dropbox-type="{{file.fileType}}" data-dropbox-rev="{{file.rev}}" data-dropbox-size="{{file.size}}" data-dropbox-path="{{file.path}}">
+					<tr class="file" ng-repeat="file in dbFiles.data" data-dropbox-id="{{file.id}}" data-dropbox-directory="{{file.directory}}" data-dropbox-type="{{file.fileType}}" data-dropbox-rev="{{file.rev}}" data-dropbox-size="{{file.size}}" data-dropbox-path="{{file.file_path}}">
 						<td class='fileType'><div class="app-icon {{getIcon(file)}}">{{file.fileType}}</div></td>
 						<td class='fileName'><a href="#" data-dropbox-directory="{{file.directory}}" data-dropbox-id="{{file.id}}">{{file.name}}</a></td>
 						<td class='fileSize'>{{file.size}}</td>
@@ -93,7 +93,7 @@
 				<li><a href="#" class="inactive"><span aria-hidden="true" class="icon-trash"></span></a></li>
 			</ul>
 			<ul class='woktopFilesList grid_12 alpha' data-dropbox-uid='{{dropbox.data.uid}}' ng-repeat="dbFiles in dropboxFiles | filter:dropbox.data.uid">
-				<li class="file grid_2" ng-class="{alpha: $index%6==0,omega: ($index+1)%6==0}"ng-repeat="file in dbFiles.data" data-dropbox-id="{{file.id}}" data-dropbox-directory="{{file.directory}}" data-dropbox-type="{{file.fileType}}" data-dropbox-rev="{{file.rev}}" data-dropbox-size="{{file.size}}" data-dropbox-path="{{file.path}}">
+				<li class="file grid_2" ng-class="{alpha: $index%6==0,omega: ($index+1)%6==0}"ng-repeat="file in dbFiles.data" data-dropbox-id="{{file.id}}" data-dropbox-directory="{{file.directory}}" data-dropbox-type="{{file.fileType}}" data-dropbox-rev="{{file.rev}}" data-dropbox-size="{{file.size}}" data-dropbox-path="{{file.file_path}}">
 					<div class="app-icon {{getIcon(file)}}">{{file.fileType}}</div>
 					<p class='fileName aligncenter'><a href="#" data-dropbox-directory="{{file.directory}}" data-dropbox-id="{{file.id}}">{{file.name}}</a></p>
 				</li>

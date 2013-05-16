@@ -11,11 +11,11 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130513204129) do
+ActiveRecord::Schema.define(:version => 20130516194438) do
 
   create_table "dropbox_files", :force => true do |t|
     t.integer  "dropbox_user_id"
-    t.string   "path"
+    t.string   "file_path"
     t.boolean  "directory"
     t.string   "rev"
     t.datetime "created_at",      :null => false
