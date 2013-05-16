@@ -6,6 +6,7 @@ gem 'jquery-rails', '2.0.2'
 gem 'bcrypt-ruby', '3.0.1'
 gem 'dropbox-sdk', '1.5.1'
 gem 'figaro'
+gem 'ancestry'
 
 group :development do
   gem 'sqlite3', '1.3.5'

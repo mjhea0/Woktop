@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130513185222) do
+ActiveRecord::Schema.define(:version => 20130513204129) do
 
   create_table "dropbox_files", :force => true do |t|
     t.integer  "dropbox_user_id"
@@ -23,7 +23,10 @@ ActiveRecord::Schema.define(:version => 20130513185222) do
     t.string   "size"
     t.string   "name"
     t.string   "fileType"
+    t.string   "ancestry"
   end
+
+  add_index "dropbox_files", ["ancestry"], :name => "index_dropbox_files_on_ancestry"
 
   create_table "dropbox_users", :force => true do |t|
     t.integer  "user_id"

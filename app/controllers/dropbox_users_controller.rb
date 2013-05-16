@@ -46,6 +46,7 @@ class DropboxUsersController < ApplicationController
   end
   
   def getRoot
+
     uid = params[:uid]
     
     if params[:path]
@@ -74,6 +75,16 @@ class DropboxUsersController < ApplicationController
     
     if !@getFiles.nil?
       theDropbox.dropbox_files.destroy_all
+
+      root_file = theDropbox.dropbox_files.create(
+          size: getTheSize(theContents['size']),
+          path: getThePath(theContents['path']),
+          name: getTheName(theContents['path']),
+          directory: true,
+          type: "Folder"
+        )
+
+      binding.pry
       
       @getFiles['contents'].each do |theContents|
         theSize = getTheSize(theContents['size'])
@@ -105,7 +116,7 @@ class DropboxUsersController < ApplicationController
     end
     
     session[:new_dropbox] = nil
-    
+
     render :json => theDropbox.dropbox_files.to_json
   end
   
