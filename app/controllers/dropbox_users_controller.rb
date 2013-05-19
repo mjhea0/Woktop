@@ -45,69 +45,10 @@ class DropboxUsersController < ApplicationController
     redirect_to profile_url
   end
   
-  def getFiles
-    uid = params[:uid]
-    
-    if params[:path]
-      path = params[:path]
-    else
-      path = "/"
-    end
-    
-    user = current_user
-    theDropbox = DropboxUser.find_by_uid_and_user_id(uid, user.id)
-    
-    dropboxSession = DropboxSession.new(APP_KEY, APP_SECRET)
-    access_token = dropboxSession.set_access_token(theDropbox.access_token_key, theDropbox.access_token_secret)
-    
-    dropboxClient = DropboxClient.new(dropboxSession, ACCESS_TYPE)
-    
-    if theDropbox.root_hash.nil? || theDropbox.root_hash.blank?
-      @getFiles = dropboxClient.metadata(path)
-    else
-      begin
-        @getFiles = dropboxClient.metadata(path, 25000, true, theDropbox.root_hash)
-      rescue DropboxNotModified
-      end
-    end
-    
-    if !@getFiles.nil?
-      theDropbox.dropbox_files.destroy_all
-      
-      @getFiles['contents'].each do |theContents|
-        theSize = getTheSize(theContents['size'])
-        thePath = getThePath(theContents['path'])
-        theName = getTheName(theContents['path'])
-        theType = getTheType(theContents['icon'])
-        
-        newFile = theDropbox.dropbox_files.create(
-          :size => theSize,
-          :path => thePath,
-          :directory => theContents['is_dir'],
-          :rev => theContents['rev'],
-          :fileType => theType,
-          :name => theName)
-      end
-      
-      theDropbox.update_attributes(:root_hash => @getFiles['hash'])
-      
-      @getAccount = dropboxClient.account_info()
-
-      theDropbox.update_attributes(
-        :country => @getAccount['country'],
-        :display_name => @getAccount['display_name'],
-        :quota_normal => @getAccount['quota_info']['normal'],
-        :quota_shared => @getAccount['quota_info']['shared'],
-        :quota_total => @getAccount['quota_info']['quota'],
-        :referral_link => @getAccount['referral_link'])
-    end
-    
-    session[:new_dropbox] = nil
-    
-    render :json => theDropbox.dropbox_files.to_json
-  end
   
   def getAccount
+    binding.pry
+    
     uid = params[:uid]
     user = current_user
     

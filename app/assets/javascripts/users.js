@@ -5,7 +5,7 @@ var app = angular.module('woktop', []);
 
 app.controller('DropboxCtrl', function($scope, dropbox) {
   	$scope.dropboxAccounts = dropbox.getAccounts();
-	$scope.dropboxFiles = dropbox.getFiles();
+	$scope.dropboxFiles = dropbox.getRoot();
 	
 	$scope.$watch(function() {
 	    sortTables();
@@ -57,12 +57,12 @@ app.factory('dropbox', function($http, $q) {
 
 			return $q.all(promises);
 		},
-		getFiles: function() {
+		getRoot: function() {
 			var promises = [];
 
 			for(i = 0; i < theUIDS.length; i++) {
 				promises.push($http({
-					url: '/dropbox/files/get', 
+					url: '/dropbox/root/get', 
 		  			method: "GET",
 		  			params: { uid: theUIDS[i] }
 				}));
@@ -202,16 +202,18 @@ $(document).ready(function() {
 	});
 	
 	//Handle file click
-	$(document).on('click', '.file a', function(event) {
-		event.preventDefault();
-		var theUID = $(this).parents('.woktopFilesList').attr('data-dropbox-uid');
-		
-		if($(this).attr('data-dropbox-directory') == "true") {
-			alert("This is a directory!");
-		}
-		else
-			window.open('/dropbox/files/download?uid=' + theUID + '&fileid=' + $(this).attr('data-dropbox-id'));
-	});
+        $(document).on('click', '.file a', function(event) {
+                event.preventDefault();
+                var theUID = $(this).parents('.woktopFilesList').attr('data-dropbox-uid');
+
+                if($(this).attr('data-dropbox-directory') == "true") {
+                        $.get('/dropbox/files/get', { uid: theUID, path: $(this).parents('tr').attr('data-dropbox-path') }, function(data) {
+                                alert(data);
+                        });
+                }
+                else
+                        window.open('/dropbox/files/download?uid=' + theUID + '&fileid=' + $(this).attr('data-dropbox-id'));
+        });
 	
 	//Handle Dropbox tools functions
 	$(document).on('click', '.dropboxTools a', function(event) {

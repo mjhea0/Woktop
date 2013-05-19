@@ -15,7 +15,10 @@
 #
 
 class DropboxFile < ActiveRecord::Base
-  attr_accessible :size, :directory, :fileType, :path, :rev, :dropbox_user_id, :name
-  
-  belongs_to :dropbox_user
+	has_ancestry
+	attr_accessible :size, :directory, :fileType, :file_path, :rev, :dropbox_user_id, :name, :parent
+ 
+	belongs_to :dropbox_user
+	
 end
+
