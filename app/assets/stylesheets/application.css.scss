@@ -23,7 +23,7 @@
 	font-style: normal;
 }
 
-.icon-user-add, .icon-logout, .icon-login, .icon-dropbox, .icon-google-drive, .icon-tools, .icon-upload, .icon-trash, .icon-info, .icon-help, .icon-warning, .icon-cycle, .icon-vcard, .icon-house, .icon-search, .icon-earth, .icon-user, .icon-wok, .icon-pencil, .icon-link, .icon-thunder, .icon-minus, .icon-plus, .icon-cross, .icon-folder, .icon-archive, .icon-download, .icon-upload-2, .icon-cloud {
+.icon-user-add, .icon-logout, .icon-login, .icon-dropbox, .icon-google-drive, .icon-tools, .icon-upload, .icon-trash, .icon-info, .icon-help, .icon-warning, .icon-cycle, .icon-vcard, .icon-house, .icon-search, .icon-earth, .icon-user, .icon-wok, .icon-pencil, .icon-link, .icon-thunder, .icon-minus, .icon-plus, .icon-cross, .icon-folder, .icon-archive, .icon-download, .icon-upload-2, .icon-cloud, .icon-trophy {
 	font-family: 'woktop-icons';
 	speak: none;
 	font-style: normal;
@@ -120,6 +120,9 @@
 .icon-cloud:before {
 	content: "\e01c";
 }
+.icon-trophy:before {
+	content: "\e01d";
+}
 
 //Imports
 @import "users";
@@ -161,7 +164,7 @@
 	}
 }
 
-.hero { margin-top: 100px; margin-bottom: 100px; }
+.hero { margin-top: 100px; margin-bottom: 50px; }
 
 .top-bar-section {
 	a:hover { color: $primary-color; }

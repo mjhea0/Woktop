@@ -28,6 +28,7 @@ Woktop::Application.routes.draw do
   get 'about', to: 'static#about', as: 'about'
   get 'privacy', to: 'static#policy', as: 'policy'
   get 'tos', to: 'static#terms', as: 'terms'
+  get 'pricing', to: 'static#pricing', as: 'pricing'
    
   root to: 'static#home'
 end

@@ -1,5 +1,9 @@
 <% provide(:title, 'Woktop - Edit Profile') %>
-<h1 class="roboto text-center text-super-large lowercase"><span class="black">Edit</span><span class="green">Profile</span></h1>
+<div class="row">
+	<div class="hero">
+		<h1 class="roboto text-center text-super-large lowercase"><span class="black">Edit</span><span class="green">Profile</span></h1>
+	</div>
+</div>
 <div class="row">
 	<%= form_for @user, url: '/profile/edit' do |f| %>
 		<% if @errors %><div class="error"><% end %>

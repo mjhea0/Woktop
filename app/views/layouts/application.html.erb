@@ -47,6 +47,8 @@
 								<li class="divider"></li>
 								<li><%= link_to '<span aria-hidden="true" class="icon-tools"></span>Edit Profile'.html_safe, profile_edit_path %></li>
 								<li class="divider"></li>
+								<li><%= link_to '<span aria-hidden="true" class="icon-trophy"></span>Upgrade'.html_safe, pricing_path %></li>
+								<li class="divider"></li>
 								<li><%= link_to '<span aria-hidden="true" class="icon-logout"></span>Logout'.html_safe, logout_path, method: "delete" %></li>
 							</ul>
 						</li>
@@ -55,6 +57,8 @@
 						<li><%= link_to '<span aria-hidden="true" class="icon-user-add"></span>Sign Up'.html_safe, signup_path %></li>
 						<li class="divider"></li>
 				    	<li><%= link_to '<span aria-hidden="true" class="icon-login"></span>Login'.html_safe, login_path %></li>
+						<li class="divider"></li>
+						<li><%= link_to '<span aria-hidden="true" class="icon-trophy"></span>Pricing'.html_safe, pricing_path %></li>
 				      	<li class="divider"></li>
 						<li><%= link_to '<span aria-hidden="true" class="icon-info"></span>About'.html_safe, about_path %></li>
 					<% end %>

@@ -1,0 +1,38 @@
+<% provide(:title, 'Woktop - Pricing') %>
+<div class="row">
+	<div class="hero">
+		<h1 class="large-6 large-centered columns text-center roboto lowercase text-normal text-super-large"><span class="black">Up</span><span class="green">grade</span></h1>
+	</div>
+</div>
+<div class="row">
+	<div class="small-12 large-4 columns">
+		<ul class="pricing-table">
+			<li class="title">Basic</li>
+			<li class="price">Free</li>
+			<li class="description">Free for life!</li>
+			<li class="bullet-item">Link up to <b>3</b> accounts</li>
+			<li class="cta-button"><%= link_to "Sign Up", signup_path, class: 'button' %></li>
+		</ul>
+	</div>
+	<div class="small-12 large-4 columns">
+		<ul class="pricing-table">
+			<li class="title">Deluxe</li>
+			<li class="price">$10/month</li>
+			<li class="description">Cilantro, paprika, and a hint of garlic!</li>
+			<li class="bullet-item">Link up to <b>5</b> accounts</li>
+			<li class="cta-button"><a class="button" href="#">Buy Now</a></li>
+		</ul>
+	</div>
+	<div class="small-12 large-4 columns">
+		<ul class="pricing-table">
+			<li class="title">Pro</li>
+			<li class="price">$50/month</li>
+			<li class="description">Stir fry files like Emeril <i>- BAM!</i></li>
+			<li class="bullet-item">Link up to <b>10</b> accounts</li>
+			<li class="cta-button"><a class="button" href="#">Buy Now</a></li>
+		</ul>
+	</div>
+	<div class="small-12 large-12 columns">
+		<p class="text-center">Need more than that? Cheesy Pete's, <%= link_to "shoot us an email...", about_path %></p>
+	</div>
+</div>
