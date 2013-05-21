@@ -36,10 +36,10 @@ class DropboxUsersController < ApplicationController
         session[:dropbox_session] = nil
         flash[:success] = "Dropbox added!"
       else
-        flash[:error] = "Hmm, there were some errors..."
+        flash[:alert] = "Hmm, there were some errors..."
       end
     else
-      flash[:error] = "Dropbox already added..."
+      flash[:alert] = "Dropbox already added..."
     end
     
     redirect_to profile_url
@@ -47,8 +47,6 @@ class DropboxUsersController < ApplicationController
   
   
   def getAccount
-    binding.pry
-    
     uid = params[:uid]
     user = current_user
     

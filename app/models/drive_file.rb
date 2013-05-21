@@ -15,24 +15,8 @@
 #  updated_at    :datetime         not null
 #
 
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
-
-one:
-  drive_user_id: 1
-  file_id: MyString
-  download_link: MyString
-  name: MyString
-  fileType: MyString
-  description: MyString
-  size: 1.5
-  path: MyString
-
-two:
-  drive_user_id: 1
-  file_id: MyString
-  download_link: MyString
-  name: MyString
-  fileType: MyString
-  description: MyString
-  size: 1.5
-  path: MyString
+class DriveFile < ActiveRecord::Base
+  attr_accessible :description, :download_link, :drive_user_id, :fileType, :file_id, :name, :path, :size
+  
+  belongs_to :drive_user
+end

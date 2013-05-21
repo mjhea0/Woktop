@@ -62,7 +62,6 @@ include DropboxFilesHelper
   end
 
   def getRoot
-
     uid = params[:uid]
     
     if params[:path]
@@ -88,18 +87,17 @@ include DropboxFilesHelper
       rescue DropboxNotModified
       end
     end
-    
 
     if !@getFiles.nil?
       theDropbox.dropbox_files.destroy_all
 
       root_file = theDropbox.dropbox_files.create(
-          size: getTheSize(@getFiles['size']),
-          file_path: getThePath(@getFiles['path']),
-          name: getTheName(@getFiles['path']),
-          directory: true,
-          fileType: "Folder"
-        )
+        size: getTheSize(@getFiles['size']),
+        file_path: getThePath(@getFiles['path']),
+        name: getTheName(@getFiles['path']),
+        directory: true,
+        fileType: "Folder"
+      )
 
       
       @getFiles['contents'].each do |theContents|
@@ -116,7 +114,8 @@ include DropboxFilesHelper
           :rev => theContents['rev'],
           :fileType => theType,
           :name => theName,
-          :parent => root_file)
+          :parent => root_file
+        )
       end
       
       theDropbox.update_attributes(:root_hash => @getFiles['hash'])
@@ -129,13 +128,12 @@ include DropboxFilesHelper
         :quota_normal => @getAccount['quota_info']['normal'],
         :quota_shared => @getAccount['quota_info']['shared'],
         :quota_total => @getAccount['quota_info']['quota'],
-        :referral_link => @getAccount['referral_link'])
+        :referral_link => @getAccount['referral_link']
+      )
     end
     
     session[:new_dropbox] = nil
 
     render :json => root_file.children
-    
   end
-
 end

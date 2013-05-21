@@ -1,18 +1,25 @@
-<% provide(:title, "Woktop - Sign in") %>
-<h1 id="title">Sign<span class="green">in</span></h1>
-<div class="container_12">
+<% provide(:title, "Woktop - Login") %>
+<div class="row">
+	<h1 class="large-6 large-centered columns text-center roboto lowercase text-normal text-super-large"><span class="black">Log</span><span class="green">in</span></h1>
+</div>
+<div class="row">
 <%= form_tag '/login' do %>
-	<% if @errors %><div class="field_with_errors"><% end %>
-    <%= text_field_tag :email, params[:email], class: "grid_6 push_3", placeholder: "Email address" %>
+	<% if @errors %><div class="error"><% end %>
+		<div class="small-12 large-6 small-centered large-centered columns">
+    		<%= text_field_tag :email, params[:email], placeholder: "Email address" %>
+		</div>
 	<% if @errors %></div><% end %>
-	<div class="clear"></div>
-	<% if @errors %><div class="field_with_errors"><% end %>
-	<%= password_field_tag :password, params[:password], class: "grid_6 push_3", placeholder: "Password" %>
+	<% if @errors %><div class="error"><% end %>
+		<div class="small-12 large-6 small-centered large-centered columns">
+			<%= password_field_tag :password, params[:password], placeholder: "Password" %>
+		</div>
 	<% if @errors %></div><% end %>
-	<div class="clear"></div>
-	<%= submit_tag "wok n' woll!", class: "grid_6 push_3 btnLarge" %>
-	<div class="clear"></div>
+		<div class="small-12 large-6 small-centered large-centered columns">
+			<%= submit_tag "Wok n' woll!", class: "large button expand" %>
+		</div>
 <% end %>
 
-	<p class="grid_6 push_3 aligncenter">Not yet signed up? <%= link_to "Join fo' free!", signup_path %></p>
+	<div class="small-12 large-6 small-centered large-centered columns">
+		<p class="text-center">Not yet signed up? <%= link_to "Join fo' free!", signup_path %></p>
+	</div>
 </div>

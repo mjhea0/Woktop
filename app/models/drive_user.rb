@@ -17,10 +17,9 @@
 #  user_id      :integer
 #
 
-require 'test_helper'
+class DriveUser < ActiveRecord::Base
+  attr_accessible :access_token, :display_name, :name, :picture, :quota_total, :quota_trash, :quota_used, :root_id, :uid
 
-class DriveUserTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  belongs_to :user
+  has_many :drive_files
 end

@@ -11,18 +11,21 @@ class UsersController < ApplicationController
 
     dropboxSession.get_request_token
 
-    @auth_url = dropboxSession.get_authorize_url url_for(dropboxAuth_url)
+    #Grayson, this auth_url is visible on the profile only... but if the user is signed in and they navigate away from the profile, then they can't see it, can we make this global to any signed in user?
+    @dropbox_auth_url = dropboxSession.get_authorize_url url_for(dropboxAuth_url)
     session[:dropbox_session] = dropboxSession.serialize
   end
   
   def create
+    @errors = false
     @user = User.new(params[:user])
     if @user.save
       session[:user_id] = @user.id
       flash[:success] = "Welcome to Woktop!"
       redirect_to profile_url
     else
-      flash.now[:error] = "Hmm, there were some errors..."
+      @errors = true
+      flash.now[:alert] = "Hmm, there were some errors..."
       render 'new'
     end
   end
@@ -32,12 +35,14 @@ class UsersController < ApplicationController
   end
   
   def update
+    @errors = false
     @user = User.find(session[:user_id])
     if @user.update_attributes(params[:user])
       flash[:success] = "Profile updated"
       redirect_to profile_url
     else
-      flash.now[:error] = "Hmm, there were some errors..."
+      @errors = true
+      flash.now[:alert] = "Hmm, there were some errors..."
       render 'edit'
     end
   end

@@ -12,6 +12,8 @@
 #  size            :string(255)
 #  name            :string(255)
 #  fileType        :string(255)
+#  origin          :integer
+#  folder_hash     :string(255)
 #
 
 require 'test_helper'

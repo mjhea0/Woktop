@@ -1,24 +1,30 @@
-<% provide(:title, 'Woktop - Organize all of your online files') %>
-<h1 id="title"><%= link_to(root_url) do %>Wok<span class="green">top</span><% end %></h1>
-<ul id="nav">
-	<% if current_user %>
-	<li><%= link_to "<span aria-hidden='true' class='icon-house'></span> profile".html_safe, profile_path, :class => 'button btnSmall signBtn' %></li>
-	<li><%= link_to "<span aria-hidden='true' class='icon-logout'></span> logout".html_safe, logout_path, :method => 'delete', :class => 'button btnSmall signBtn' %></li>
-	<% end %>
-</ul>
-<div class="container_12">
-	<%= form_for @user, url: signup_url do |f| %>
-		<%= f.text_field :email, class: "grid_6 push_3", placeholder: "Email address" %>
-		<div class="clear"></div>
-		<%= f.password_field :password, class: "grid_3 push_3", placeholder: "Password" %>
-		<%= f.password_field :password_confirmation, class: "grid_3 push_3", placeholder: "Password again" %>
-		<div class="clear"></div>
-		<%= f.submit "signup!", class: "grid_6 push_3 btnLarge" %>
-		<div class="clear"></div>
+<% provide(:title, 'Woktop - Signup') %>
+<div class="row">
+	<h1 class="large-6 large-centered columns text-center roboto lowercase text-normal text-super-large"><span class="black">Sign</span><span class="green">up</span></h1>
+</div>
+<div class="row">
+	<%= form_tag '/signup', autocomplete: "off" do %>
+		<% if @errors %><div class="error"><% end %>
+		<div class="small-12 large-6 small-centered large-centered columns">
+			<%= text_field_tag :email, params[:email], placeholder: "Email address" %>
+		</div>
+		<% if @errors %></div><% end %>
+		<% if @errors %><div class="error"><% end %>
+		<div class="small-12 large-6 small-centered large-centered columns">
+			<%= password_field_tag :password, params[:password], placeholder: "Password" %>
+		</div>
+		<% if @errors %></div><% end %>
+		<% if @errors %><div class="error"><% end %>
+		<div class="small-12 large-6 small-centered large-centered columns">
+			<%= password_field_tag :password_confirmation, params[:password_confirmation], placeholder: "Password again" %>
+		</div>
+		<% if @errors %></div><% end %>
+		<div class="small-12 large-6 small-centered large-centered columns">
+			<%= submit_tag "Let's go!", class: "large button expand" %>
+		</div>
 	<% end %>
 	
-	<p class="grid_6 push_3 aligncenter">Already signed up? <%= link_to "Sign in here!", login_path %></p>
+	<div class="small-12 large-6 small-centered large-centered columns">
+		<p class="text-center">Already signed up? <%= link_to "Sign in here!", login_path %></p>
+	</div>
 </div>
-<div id="pan"></div>
-<div id="coils"></div>
-<div id="glow"></div>

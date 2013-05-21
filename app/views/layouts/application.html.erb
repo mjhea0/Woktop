@@ -1,23 +1,101 @@
 <!DOCTYPE html>
-<html ng-app="woktop">
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en"><![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
-  <title><%= yield :title %></title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
-  <link href='http://fonts.googleapis.com/css?family=Lato:100,300,700|Roboto+Condensed:300,400,700' rel='stylesheet' type='text/css'>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	
+	<title><%= yield :title %></title>
+	
+  	<%= stylesheet_link_tag    "application", :media => "all" %>
+  	<%= javascript_include_tag "application" %>
+	<%= javascript_include_tag "vendor/custom.modernizr" %>
+  	<%= csrf_meta_tags %>
+
+  	<link href='http://fonts.googleapis.com/css?family=Open+Sans:100,300,700|Roboto+Condensed:300,400,700' rel='stylesheet' type='text/css'>
 </head>
 <body>
-	<div class="alertHolder">
-	<% flash.each do |key, value| %>
-		<div class="alert alert-<%= key %>"><span aria-hidden="true" class="icon-<%= key %>"></span><%= value %></div>
-	<% end %>
+	<div id="root">
+		<div class="fixed">
+			<nav class="top-bar">
+				<ul class="title-area">
+					<li class="name hide-for-small"><%= link_to '<span aria-hidden="true" class="icon-wok"></span>'.html_safe, root_path %></li>
+					<li class="name show-for-small"><%= link_to '<p class="roboto text-bold logo"><span class="white">Wok</span><span class="green">top</span></p>'.html_safe, root_path %></li>
+					<li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
+				</ul>
+				<section class="top-bar-section">
+					<ul class="right">
+					<% if current_user %>
+						<li class="divider"></li>
+						<li><%= link_to '<span aria-hidden="true" class="icon-info"></span>About'.html_safe, about_path %></li>
+						<li class="divider"></li>
+						<li class="has-dropdown">
+							<%= link_to "<span aria-hidden='true' class='icon-user'></span>#{current_user.email}".html_safe, profile_path %>
+							<ul class="dropdown">
+								<li class="divider"></li>
+								<li class="has-dropdown">
+									<%= link_to '<span aria-hidden="true" class="icon-cloud"></span>Add Account'.html_safe, '#' %>
+									<ul class="dropdown">
+										<% if @dropbox_auth_url %>
+										<li class="divider"></li>
+										<li><%= link_to '<span aria-hidden="true" class="icon-dropbox"></span>Dropbox'.html_safe, @dropbox_auth_url %></li>
+										<% end %>
+										<li class="divider"></li>
+										<li><%= link_to '<span aria-hidden="true" class="icon-google-drive"></span>Google Drive'.html_safe, '#' %></li>
+									</ul>
+								</li>
+								<li class="divider"></li>
+								<li><%= link_to '<span aria-hidden="true" class="icon-tools"></span>Edit Profile'.html_safe, profile_edit_path %></li>
+								<li class="divider"></li>
+								<li><%= link_to '<span aria-hidden="true" class="icon-logout"></span>Logout'.html_safe, logout_path, method: "delete" %></li>
+							</ul>
+						</li>
+					<% else %>
+						<li class="divider"></li>
+						<li><%= link_to '<span aria-hidden="true" class="icon-user-add"></span>Sign Up'.html_safe, signup_path %></li>
+						<li class="divider"></li>
+				    	<li><%= link_to '<span aria-hidden="true" class="icon-login"></span>Login'.html_safe, login_path %></li>
+				      	<li class="divider"></li>
+						<li><%= link_to '<span aria-hidden="true" class="icon-info"></span>About'.html_safe, about_path %></li>
+					<% end %>
+					</ul>
+				</section>
+			</nav>
+		</div>
+		<div class="alertsHolder">
+			<% flash.each do |key, value| %>
+			<div class="row">
+				<div class="small-12 large-6 small-centered large-centered columns">
+					<div data-alert class="alert-box <%= key %> text-center">
+						<%= value %>
+						<a href="#" class="close">&times;</a>
+					</div>
+				</div>
+			</div>
+			<% end %>
+		</div>	
+		<%= yield %>
+		<div id="root_footer"></div>
 	</div>
-	
-	<%= yield %>
-	
 	<div id="footer">
-		<p>Made with love &amp; compassion by <a href="http://patrickcason.com" target="_blank">Patrick Cason</a></p>
+		<div class="row">
+			<div class="small-12 large-6 large-uncentered columns">
+				<ul class="inline-list hide-for-small">
+				  	<li><%= link_to "<small class='lowercase'>About</small>".html_safe, about_path %></li>
+					<li><%= link_to "<small class='lowercase'>Privacy Policy</small>".html_safe, policy_path %></li>
+					<li><%= link_to "<small class='lowercase'>Terms of Service</small>".html_safe, terms_path %></li>
+				</ul>
+				<ul class="inline-list show-for-small footerList">
+				  	<li><%= link_to "<small class='lowercase'>About</small>".html_safe, about_path %></li>
+					<li><%= link_to "<small class='lowercase'>Privacy Policy</small>".html_safe, policy_path %></li>
+					<li><%= link_to "<small class='lowercase'>Terms of Service</small>".html_safe, terms_path %></li>
+				</ul>
+			</div>
+			<div class="small-12 large-6 large-uncentered columns lowercase">
+				<p class="text-right hide-for-small"><small>Made with love &amp; compassion by <a href="https://patrickcason.com" target="_blank">Patrick</a> & <a href="https://github.com/carrollgt91" target="_blank">Grayson</a></small></p>
+				<p class="text-center show-for-small"><small>Made with love &amp; compassion by <a href="https://patrickcason.com" target="_blank">Patrick</a> & <a href="https://github.com/carrollgt91" target="_blank">Grayson</a></small></p>
+			</div>
+		</div>
 	</div>
 </body>
 </html>

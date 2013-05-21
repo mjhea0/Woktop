@@ -1,0 +1,56 @@
+/*
+  Place all the styles related to the matching controller here.
+  They will automatically be included in application.css.
+*/
+
+//Imports
+@import "foundation/foundation-global";
+@import "foundation/components/global";
+@import "foundation/components/inline-lists";
+@import "foundation_and_overrides";
+@import "compass/css3/user-interface";
+
+.progressBar { margin-top: 12px; }
+
+.meter {
+	font-size: 0.85em;
+	line-height: 1.5em;
+	text-align: right;
+	padding-right: 5px;
+	color: $body-bg;
+}
+
+.dropboxTools {
+	@include inline-list;
+	margin-top: 9px !important;
+	width: 155px !important;
+	li {
+		font-size: 1.25em;
+		margin-left: 10px !important;
+	}
+}
+
+.fileAccount {
+	h3.subheader {
+		padding-left: 20px;
+		overflow-y: hidden;
+		height: 40px;
+	}
+}
+
+.inactive {
+	color: #ccc;
+	cursor: default;
+	&:hover { color: #ccc; }
+}
+
+.file { @include user-select(none); }
+
+.file.selected {
+	background: #444;
+	* { color: #fff; }
+	a {
+		color: $primary-color;
+		&:hover { color: #fff; }
+	}
+}

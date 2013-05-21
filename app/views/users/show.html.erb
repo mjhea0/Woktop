@@ -1,18 +1,43 @@
-<% provide(:title, 'Woktop - Organize all of your online files') %>
-<h1 id="title"><%= link_to(profile_url) do %>Your<span class="green">files</span><% end %></h1>
-<ul id="organizeNav">
-	<li><%= link_to "<span aria-hidden='true' class='icon-list'></span>".html_safe, profile_path, :class => 'button btnIcon signBtn' %></li>
-	<li><%= link_to "<span aria-hidden='true' class='icon-layout'></span>".html_safe, profile_path, :class => 'button btnIcon signBtn' %></li>
-	<li><%= link_to "<span aria-hidden='true' class='icon-docs'></span>".html_safe, profile_path, :class => 'button btnIcon signBtn' %></li>
-</ul>
-<ul id="nav">
-	<% if @auth_url %><li><%= link_to "<span aria-hidden='true' class='icon-dropbox'></span>".html_safe, @auth_url, :title => "Add Dropbox", :class => 'button btnIcon signBtn' %></li><% end %>
-	<li><%= link_to "<span aria-hidden='true' class='icon-tools'></span>".html_safe, editprofile_path, :title => "Edit Profile", :class => 'button btnIcon signBtn' %></li>
-	<li><%= link_to "<span aria-hidden='true' class='icon-help'></span>".html_safe, about_path, :title => "About", :class => 'button btnIcon signBtn' %></li>
-	<li><%= link_to "<span aria-hidden='true' class='icon-logout'></span>".html_safe, logout_path, :method => "delete", :title => "Logout", :class => 'button btnIcon signBtn' %></li>
-</ul>
+<% provide(:title, 'Woktop - Profile') %>
+<h1 class="roboto text-center text-super-large lowercase"><span class="black">Your</span><span class="green">Files</span></h1>
 
 <div class="infiniteLoader" data-dropbox-uids="<%= @dropbox_users.map(&:uid).join(",") %>"></div>
+
+<div class="files row"></div>
+
+<!--
+<div class="row">
+  	<div class="small-12 large-12 columns fileAccount" data-dropbox-uid="UID">
+		<div class="row">
+			<h3 class='hide-for-small subheader large-4 columns'>NAME</h3>
+			<h3 class='show-for-small small-12 text-center'>NAME</h3>
+			<div class="small-7 large-6 columns progressBar">
+				<div class="progress"><span class="meter" style="width: 45%;">45%</span></div>
+			</div>
+			<ul class="inline-list small-5 large-2 columns dropboxTools">
+				<li><a href="#"><span aria-hidden="true" class="icon-upload"></span></a></li>
+				<li><a href="#"><span aria-hidden="true" class="icon-search"></span></a></li>
+				<li><a href="#"><span aria-hidden="true" class="icon-tools"></span></a></li>
+				<li><a href="#" class="inactive"><span aria-hidden="true" class="icon-trash"></span></a></li>
+			</ul>
+		</div>
+		<table class='small-12 large-12 woktopFilesList' data-dropbox-uid='UID'>
+			<thead>
+				<th width="100" class='fileType'><span>Type</span></th>
+				<th class='fileName'><span>Name</span></th>
+				<th width="100" class='fileSize'><span>Size</span></th>
+			</thead>
+			<tbody>
+				<tr class="file" data-dropbox-id="FILE-ID" data-dropbox-directory="DIRECTORY" data-dropbox-type="TYPE" data-dropbox-rev="REV" data-dropbox-size="SIZE" data-dropbox-path="PATH">
+					<td class='fileType'><div class="app-icon THE-ICON">TYPE</div></td>
+					<td class='fileName'><a href="#" data-dropbox-directory="DIRECTORY" data-dropbox-id="FILE-ID">NAME</a></td>
+					<td class='fileSize'>SIZE</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+-->
 
 <% if session[:new_dropbox] %>
 <div class="window" data-form-type="nameDropbox" data-dropbox-uid="<%= session[:new_dropbox] %>">
@@ -48,59 +73,3 @@
 </div>
 <div class="theOverlay" style="display: none;"></div>
 <% end %>
-
-<div class="container_12">
-	<div ng-controller="DropboxCtrl" class="files listView">
-	  	<div class="fileAccount" ng-repeat="dropbox in dropboxAccounts" data-dropbox-uid="{{dropbox.data.uid}}">
-			<h2 class='grid_4 alpha'>{{dropbox.data.name}}</h2>
-			<div class="progressBar grid_6" ng-init="thePercent=getPercent(dropbox.data)">
-				<div class="progress" ng-class="{progressLittle: thePercent < 2}" style="width: {{thePercent}}%;"><span class="desc1">{{thePercent}}%</span></div>
-				<div class="remainder" style="width: {{100 - thePercent}}%;"></div>
-			</div>
-			<ul class="dropboxTools grid_2 omega">
-				<li><a href="#"><span aria-hidden="true" class="icon-upload"></span></a></li>
-				<li><a href="#"><span aria-hidden="true" class="icon-search"></span></a></li>
-				<li><a href="#"><span aria-hidden="true" class="icon-tools"></span></a></li>
-				<li><a href="#" class="inactive"><span aria-hidden="true" class="icon-trash"></span></a></li>
-			</ul>
-			<table class='table grid_12 alpha woktopFilesList' data-dropbox-uid='{{dropbox.data.uid}}'>
-				<thead>
-					<th class='fileType' data-sort='string'><span>Type</span></th>
-					<th class='fileName' data-sort='filename'><span>Name</span><span class='downArrow'></span></th>
-					<th class='fileSize' data-sort='filesize'><span>Size</span></th>
-				</thead>
-				<tbody ng-repeat="dbFiles in dropboxFiles | filter:dropbox.data.uid">
-					<tr class="file" ng-repeat="file in dbFiles.data" data-dropbox-id="{{file.id}}" data-dropbox-directory="{{file.directory}}" data-dropbox-type="{{file.fileType}}" data-dropbox-rev="{{file.rev}}" data-dropbox-size="{{file.size}}" data-dropbox-path="{{file.file_path}}">
-						<td class='fileType'><div class="app-icon {{getIcon(file)}}">{{file.fileType}}</div></td>
-						<td class='fileName'><a href="#" data-dropbox-directory="{{file.directory}}" data-dropbox-id="{{file.id}}">{{file.name}}</a></td>
-						<td class='fileSize'>{{file.size}}</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-	</div>
-	<div ng-controller="DropboxCtrl" class="files thumbnailView">
-	  	<div class="fileAccount" ng-repeat="dropbox in dropboxAccounts" data-dropbox-uid="{{dropbox.data.uid}}">
-			<h2 class='grid_4 alpha'>{{dropbox.data.name}}</h2>
-			<div class="progressBar grid_6" ng-init="thePercent=getPercent(dropbox.data)">
-				<div class="progress" ng-class="{progressLittle: thePercent < 2}" style="width: {{thePercent}}%;"><span class="desc1">{{thePercent}}%</span></div>
-				<div class="remainder" style="width: {{100 - thePercent}}%;"></div>
-			</div>
-			<ul class="dropboxTools grid_2 omega">
-				<li><a href="#"><span aria-hidden="true" class="icon-upload"></span></a></li>
-				<li><a href="#"><span aria-hidden="true" class="icon-search"></span></a></li>
-				<li><a href="#"><span aria-hidden="true" class="icon-tools"></span></a></li>
-				<li><a href="#" class="inactive"><span aria-hidden="true" class="icon-trash"></span></a></li>
-			</ul>
-			<ul class='woktopFilesList grid_12 alpha' data-dropbox-uid='{{dropbox.data.uid}}' ng-repeat="dbFiles in dropboxFiles | filter:dropbox.data.uid">
-				<li class="file grid_2" ng-class="{alpha: $index%6==0,omega: ($index+1)%6==0}"ng-repeat="file in dbFiles.data" data-dropbox-id="{{file.id}}" data-dropbox-directory="{{file.directory}}" data-dropbox-type="{{file.fileType}}" data-dropbox-rev="{{file.rev}}" data-dropbox-size="{{file.size}}" data-dropbox-path="{{file.file_path}}">
-					<div class="app-icon {{getIcon(file)}}">{{file.fileType}}</div>
-					<p class='fileName aligncenter'><a href="#" data-dropbox-directory="{{file.directory}}" data-dropbox-id="{{file.id}}">{{file.name}}</a></p>
-				</li>
-			</ul>
-		</div>
-	</div>
-	<div ng-controller="DropboxCtrl" class="files desktopView">
-	  	<h2 class="aligncenter">Desktop view coming soon...</h2>
-	</div>
-</div>

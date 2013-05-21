@@ -16,7 +16,7 @@ class SessionsController < ApplicationController
       redirect_to profile_url
     else
       @errors = true
-      flash.now[:error] = "Hmm, there were some errors..."
+      flash.now[:alert] = "Hmm, there were some errors..."
       render 'new'
     end
   end
