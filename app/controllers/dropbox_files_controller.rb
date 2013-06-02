@@ -34,8 +34,7 @@ include DropboxFilesHelper
     
     theDropbox = DropboxUser.find_by_uid_and_user_id(uid, user.id)
   
-    dropboxSession = DropboxSession.new(APP_KEY, APP_SECRET)
-    access_token = dropboxSession.set_access_token(theDropbox.access_token_key, theDropbox.access_token_secret)
+    dropboxSession = create_dropbox_session(uid, user.id)
   
     dropboxClient = DropboxClient.new(dropboxSession, ACCESS_TYPE)
     
@@ -47,11 +46,8 @@ include DropboxFilesHelper
   def getFiles
     uid = params[:uid]
     user = current_user
-    
-    theDropbox = DropboxUser.find_by_uid_and_user_id(uid, user.id)
-  
-    dropboxSession = DropboxSession.new(APP_KEY, APP_SECRET)
-    access_token = dropboxSession.set_access_token(theDropbox.access_token_key, theDropbox.access_token_secret)
+
+    dropboxSession = create_dropbox_session(uid, user.id)
   
     dropboxClient = DropboxClient.new(dropboxSession, ACCESS_TYPE)
 
@@ -63,19 +59,14 @@ include DropboxFilesHelper
 
   def getRoot
     uid = params[:uid]
-    
-    if params[:path]
-      path = params[:path]
-    else
-      path = "/"
-    end
+
+    path = '/'
     
     user = current_user
 
     theDropbox = DropboxUser.find_by_uid_and_user_id(uid, user.id)
-    
-    dropboxSession = DropboxSession.new(APP_KEY, APP_SECRET)
-    access_token = dropboxSession.set_access_token(theDropbox.access_token_key, theDropbox.access_token_secret)
+
+    dropboxSession = create_dropbox_session(uid, user.id)
     
     dropboxClient = DropboxClient.new(dropboxSession, ACCESS_TYPE)
     
@@ -88,17 +79,17 @@ include DropboxFilesHelper
       end
     end
 
+
     if !@getFiles.nil?
       theDropbox.dropbox_files.destroy_all
 
-      root_file = theDropbox.dropbox_files.create(
+      @root_file = theDropbox.dropbox_files.create(
         size: getTheSize(@getFiles['size']),
         file_path: getThePath(@getFiles['path']),
         name: getTheName(@getFiles['path']),
         directory: true,
         fileType: "Folder"
       )
-
       
       @getFiles['contents'].each do |theContents|
         theSize = getTheSize(theContents['size'])
@@ -114,7 +105,7 @@ include DropboxFilesHelper
           :rev => theContents['rev'],
           :fileType => theType,
           :name => theName,
-          :parent => root_file
+          :parent => @root_file
         )
       end
       
@@ -134,6 +125,8 @@ include DropboxFilesHelper
     
     session[:new_dropbox] = nil
 
-    render :json => root_file.children
+    @root_file = theDropbox.dropbox_files.first unless @root_file
+
+    render :json => @root_file.children
   end
 end

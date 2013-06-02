@@ -18,7 +18,13 @@ class UsersController < ApplicationController
   
   def create
     @errors = false
-    @user = User.new(params[:user])
+
+
+    @user = User.new
+    @user.email = params[:email]
+    @user.password = params[:password]
+    @user.password_confirmation = params[:password_confirmation]
+
     if @user.save
       session[:user_id] = @user.id
       flash[:success] = "Welcome to Woktop!"
