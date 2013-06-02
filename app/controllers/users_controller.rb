@@ -9,6 +9,8 @@ class UsersController < ApplicationController
     
     dropboxSession = DropboxSession.new(APP_KEY, APP_SECRET)
 
+    binding.pry
+
     dropboxSession.get_request_token
 
     #Grayson, this auth_url is visible on the profile only... but if the user is signed in and they navigate away from the profile, then they can't see it, can we make this global to any signed in user?
@@ -18,7 +20,15 @@ class UsersController < ApplicationController
   
   def create
     @errors = false
-    @user = User.new(params[:user])
+
+
+    @user = User.new
+    @user.email = params[:email]
+    @user.password = params[:password]
+    @user.password_confirmation = params[:password_confirmation]
+
+    binding.pry
+
     if @user.save
       session[:user_id] = @user.id
       flash[:success] = "Welcome to Woktop!"
