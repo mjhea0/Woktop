@@ -34,8 +34,7 @@ include DropboxFilesHelper
     
     theDropbox = DropboxUser.find_by_uid_and_user_id(uid, user.id)
   
-    dropboxSession = DropboxSession.new(APP_KEY, APP_SECRET)
-    access_token = dropboxSession.set_access_token(theDropbox.access_token_key, theDropbox.access_token_secret)
+    dropboxSession = create_dropbox_session(uid, user.id)
   
     dropboxClient = DropboxClient.new(dropboxSession, ACCESS_TYPE)
     
@@ -47,11 +46,8 @@ include DropboxFilesHelper
   def getFiles
     uid = params[:uid]
     user = current_user
-    
-    theDropbox = DropboxUser.find_by_uid_and_user_id(uid, user.id)
-  
-    dropboxSession = DropboxSession.new(APP_KEY, APP_SECRET)
-    access_token = dropboxSession.set_access_token(theDropbox.access_token_key, theDropbox.access_token_secret)
+
+    dropboxSession = create_dropbox_session(uid, user.id)
   
     dropboxClient = DropboxClient.new(dropboxSession, ACCESS_TYPE)
 
@@ -69,9 +65,8 @@ include DropboxFilesHelper
     user = current_user
 
     theDropbox = DropboxUser.find_by_uid_and_user_id(uid, user.id)
-    
-    dropboxSession = DropboxSession.new(APP_KEY, APP_SECRET)
-    access_token = dropboxSession.set_access_token(theDropbox.access_token_key, theDropbox.access_token_secret)
+
+    dropboxSession = create_dropbox_session(uid, user.id)
     
     dropboxClient = DropboxClient.new(dropboxSession, ACCESS_TYPE)
     
@@ -131,8 +126,6 @@ include DropboxFilesHelper
     session[:new_dropbox] = nil
 
     @root_file = theDropbox.dropbox_files.first unless @root_file
-
-    binding.pry
 
     render :json => @root_file.children
   end
