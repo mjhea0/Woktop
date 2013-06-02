@@ -13,34 +13,6 @@
 
 ActiveRecord::Schema.define(:version => 20130516194438) do
 
-  create_table "drive_files", :force => true do |t|
-    t.integer  "drive_user_id"
-    t.string   "file_id"
-    t.string   "download_link"
-    t.string   "name"
-    t.string   "fileType"
-    t.string   "description"
-    t.float    "size"
-    t.string   "path"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
-  end
-
-  create_table "drive_users", :force => true do |t|
-    t.string   "display_name"
-    t.float    "quota_total"
-    t.float    "quota_used"
-    t.float    "quota_trash"
-    t.string   "root_id"
-    t.string   "picture"
-    t.string   "name"
-    t.string   "access_token"
-    t.integer  "uid"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-    t.integer  "user_id"
-  end
-
   create_table "dropbox_files", :force => true do |t|
     t.integer  "dropbox_user_id"
     t.string   "file_path"
@@ -73,20 +45,6 @@ ActiveRecord::Schema.define(:version => 20130516194438) do
     t.string   "access_token_secret"
     t.string   "name"
     t.string   "root_hash"
-  end
-
-  create_table "dropboxes", :force => true do |t|
-    t.integer  "user_id"
-    t.string   "access_token"
-    t.string   "referral_link"
-    t.string   "display_name"
-    t.integer  "uid"
-    t.string   "country"
-    t.float    "quota_normal"
-    t.float    "quota_shared"
-    t.float    "quota_total"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
   end
 
   create_table "users", :force => true do |t|
